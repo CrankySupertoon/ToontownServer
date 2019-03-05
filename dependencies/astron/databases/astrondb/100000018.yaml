@@ -1,0 +1,12 @@
+id: 100000018
+class: Account
+fields:
+  ACCOUNT_AV_SET: "[0, 100000019, 0, 0, 0, 0]"
+  ESTATE_ID: 0
+  ACCOUNT_AV_SET_DEL: "[]"
+  CREATED: "\"Sun Feb 24 11:37:26 2019\""
+  LAST_LOGIN: "\"Sun Feb 24 11:37:26 2019\""
+  ACCOUNT_ID: "\"b\""
+  ACCESS_LEVEL: 700
+  LAST_LOGIN_TS: 1551026247
+  CHAT_SETTINGS: "[1, 1]"
