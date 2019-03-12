@@ -2,6 +2,8 @@
 
 call constants.bat
 
+title Toontown Stride Game Launcher
+
 set ROOT_PATH=..\..\
 set PATH_TO_STARTUP_CONFIGURATION=%ROOT_PATH%%STARTUP_CONFIGURATION_FILE%
 set PATH_TO_FILE=""
