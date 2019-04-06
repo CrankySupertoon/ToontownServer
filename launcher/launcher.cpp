@@ -88,9 +88,10 @@ void Launcher::on_Play_clicked()
         GAME_SERVER = "replace this with IP";
         output = ("Starting Toontown Stride...\nPPython directory: " + PPYTHON_PATH + "\nUsername: " + USERNAME + "\nGameserver: " + GAME_SERVER + "\nGame mode: " + GAME_MODE);
         // set the IP address to local host
-       q.setWindowTitle("Information");
-       q.setText("Starting Toontown Stride...\nppython: " + PPYTHON_PATH + "\nUsername: " + USERNAME + "\nGameserver: " + GAME_SERVER + "\nGame mode: " + GAME_MODE);
+        q.setWindowTitle("Information");
+        q.setText("Starting Toontown Stride...\nppython: " + PPYTHON_PATH + "\nUsername: " + USERNAME + "\nGameserver: " + GAME_SERVER + "\nGame mode: " + GAME_MODE);
         q.exec();
+        system("launcher.bat " + PPYTHON_PATH);
     }
 }
 

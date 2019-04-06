@@ -1,4 +1,4 @@
 *.pyc
 user/**
-vscode/**
+.vscode/**
 config/startup_config.xml
