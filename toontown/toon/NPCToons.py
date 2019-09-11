@@ -866,44 +866,7 @@ NPCToonDict = {
  12001: (12000, lnames[12001], 'r', 'm', 0, NPC_LAFF_RESTOCK),
  12002: (-1, lnames[12002], ('pls', 'ls', 'l', 'f', 3, 0, 3, 3, 111, 27, 97, 27, 45, 27), 'f', 0, NPC_REGULAR),
  13001: (13000, lnames[13001], 'r', 'f', 0, NPC_LAFF_RESTOCK),
- 13002: (-1, lnames[13002], ('bss', 'ss', 'm', 'm', 19, 0, 19, 19, 0, 3, 0, 3, 1, 16), 'm', 0, NPC_REGULAR),
-  # Cat's sos card
- 13003: (-1, lnames[13003], ('css', 'ss', 'm', 'm', 19, 0, 19, 19, 0, 3, 0, 3, 1, 16), 'f', 0, NPC_REGULAR),
- 13004: (-1, lnames[13004], ('dss', 'ms', 's', 'm', 21, 0, 21, 21, 0, 3, 0, 3, 1, 16), 'f', 0, NPC_REGULAR),
- # paramater 1 = species, paramater 2 = head size, parameter 3 = body size, parameter 4 = female or male
- # parameter 5 = arms, paramaeter 6 = gloves , parameter 7 = legs, paramater 8 = determines head color
- #  parameter 9 = shirt, parameter 10 = shirt color, parameter 11 = sleeve, parameter 12 = sleeve color
- #  parameter 13 = shorts, parameter 14 = short color
- #---Species ------
- # bss = bear
- # pls = monkey
- # pss = monkey
- # css = cat
- # ssl = pig
- # dls = bumpy doggo 
- # mss = mouse
- # dss = no bumpy doggo
-
- #--Head---------#
- # ss = short
- # ms = medium short
- # l = large
-
- #--Body--------------#
- # ss = small
- # m = medium
- # l = large
-
- #--Legs--------------#
- # ss = small
- # m = medium
- # l = large
-# My custom SOS
-
- 13005: (-1, lnames[13005], ('css', 'ms', 's', 'm', 2, 26, 26, 26, 86, 27, 75, 27, 12, 27), 'm', 0, NPC_REGULAR),
- 13006: (-1, lnames[13006], ('mss', 'ms', 's', 'm', 2, 0, 2, 2, 0, 3, 0, 3, 1, 16), 'm', 0, NPC_REGULAR),
- 13007: (-1, lnames[13007], ('dss', 'ms', 's', 'm', 8, 0, 8, 8, 105, 27, 27, 0, 40, 27,), 'm', 0, NPC_REGULAR),
- 13008: (-1, lnames[13008], ('css', 'ms', 's', 'm', 26, 0, 26, 26, 86, 27, 75, 27, 12, 27), 'm', 0, NPC_REGULAR),
+ 13002: (-1, lnames[13002], ('bss', 'ss', 'm', 'm', 19, 0, 19, 19, 0, 3, 0, 3, 1, 16), 'm', 0, NPC_REGULAR)
 }
 
 if config.GetBool('want-new-toonhall', 1):
@@ -980,26 +943,7 @@ HQnpcFriends = {
  5207: (ToontownBattleGlobals.NPC_RESTOCK_GAGS, ToontownBattleGlobals.SQUIRT_TRACK, 0, 3),
  3129: (ToontownBattleGlobals.NPC_RESTOCK_GAGS, ToontownBattleGlobals.THROW_TRACK, 0, 3),
  4125: (ToontownBattleGlobals.NPC_RESTOCK_GAGS, ToontownBattleGlobals.SOUND_TRACK, 0, 3),
- 1329: (ToontownBattleGlobals.NPC_RESTOCK_GAGS, ToontownBattleGlobals.DROP_TRACK, 0, 3),
-   # This is the lawbot bear
- 13002: (ToontownBattleGlobals.SOUND_TRACK, 6, 95, 5),
- # This is Coach Z
- 5313: (ToontownBattleGlobals.HEAL_TRACK, 6, 4, 5),
- # This is Librarian Larry
- 2005: (ToontownBattleGlobals.DROP_TRACK, 1, 200, 5),
- # This is Doctor Surlee
- 2018: (ToontownBattleGlobals.THROW_TRACK, 6, 215, 5),
- 2013: (ToontownBattleGlobals.SQUIRT_TRACK, 6, 200, 5),
- # cat's custom sos card
- 13004: (ToontownBattleGlobals.SQUIRT_TRACK, 6, 115, 5),
- # my custom sos card
- 13005: (ToontownBattleGlobals.DROP_TRACK, 5, 420, 5),
- # Kevin's
- 13006: (ToontownBattleGlobals.TRAP_TRACK, 6, 390, 5),
- # Alex's
- 13007: (ToontownBattleGlobals.SOUND_TRACK, 6, 390, 5),
- 13008: (ToontownBattleGlobals.LURE_TRACK, 6, 0, 5),
-
+ 1329: (ToontownBattleGlobals.NPC_RESTOCK_GAGS, ToontownBattleGlobals.DROP_TRACK, 0, 3)
 }
 
 FOnpcFriends = {

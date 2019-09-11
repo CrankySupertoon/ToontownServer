@@ -5,15 +5,8 @@
     "100000007": true,
     "100000009": true,
     "100000012": true,
-    "100000016": true,
-    "100000019": true,
-    "100000020": true,
-    "100000021": true,
-    "100000022": true,
-    "100000023": true,
-    "100000024": true,
-    "100000026": true,
-    "100000027": true
+    "100000015": true,
+    "100000019": true
   },
   "acceptingNonFriendWhispers": {
     "100000001": true,
@@ -21,15 +14,8 @@
     "100000007": true,
     "100000009": true,
     "100000012": true,
-    "100000016": true,
-    "100000019": true,
-    "100000020": true,
-    "100000021": true,
-    "100000022": true,
-    "100000023": true,
-    "100000024": true,
-    "100000026": true,
-    "100000027": true
+    "100000015": true,
+    "100000019": true
   },
   "acceptingTeleport": {
     "100000001": true,
@@ -37,15 +23,8 @@
     "100000007": true,
     "100000009": true,
     "100000012": true,
-    "100000016": true,
-    "100000019": true,
-    "100000020": true,
-    "100000021": true,
-    "100000022": true,
-    "100000023": true,
-    "100000024": true,
-    "100000026": true,
-    "100000027": true
+    "100000015": true,
+    "100000019": true
   },
   "cogInterface": true,
   "fov": 68.00347900390625,
@@ -53,12 +32,12 @@
   "fullscreen": false,
   "language": "English",
   "loadDisplay": "pandagl",
-  "musicVol": 0.3863796615600586,
+  "musicVol": 0.9358974456787109,
   "res": [
     1280,
     720
   ],
-  "sfxVol": 0.9871797180175781,
+  "sfxVol": 0.0,
   "speedchatPlus": true,
   "talk2speech": false,
   "toonChatSounds": true,
