@@ -50,12 +50,12 @@ class MyApp(main.Ui_MainWindow, QtWidgets.QMainWindow):
             print("Username is: " + self.name.text())
             self.IP.setText("127.0.0.1")
             self.IP.setReadOnly(True)
-            self.playButton.clicked.connect(self.localHost)
+            self.playButton.clicked.connect(self.local_host)
         
         
         print("Current text is: " + txt)
     # Code to log onto a server that has already been started
-    def serverhost(self):
+    def server_host(self):
         # Grabs the server text and IP to pass into panda
         username = self.name.text()
         IP_Address = self.IP.text()
@@ -70,7 +70,7 @@ class MyApp(main.Ui_MainWindow, QtWidgets.QMainWindow):
         self.close()
 
     # Code to start local host(DEFAULT OPTION)
-    def localhost(self):
+    def local_host(self):
         backendir = os.chdir("dev/backend/")
         username = self.name.text()
         
