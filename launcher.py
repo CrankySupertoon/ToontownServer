@@ -1,14 +1,25 @@
 from PySide2 import QtWidgets
 import subprocess
 import os
-from ui import main, CPL
+from ui import main, CPL 
+import sys
+import zipfile import *
 # Created by Abrahan Nevarez
 class Content_Pack_Launcher(CPL.Ui_Form, QtWidgets.QMainWindow):
     def __init__(self, parent = None):
         super(Content_Pack_Launcher, self).__init__(parent)
 
+    # Opens the resource folder so the user can put in content folders
+    def open_resource_folder(self):
+
+    # Replaces resource file with selected resource that is available in the directory
+    def replace_resource(self):
+
+    # Looks at directory, and checks for mf file,then unzips file and puts a zip content of the resources in folder
+    def unzip_mf(self):
+
     # Zips up the default content pack
-    def zippack(self):
+    def zip_pack(self):
 
 # Initates the basic UI elements
 class MyApp(main.Ui_MainWindow, QtWidgets.QMainWindow):
@@ -24,15 +35,18 @@ class MyApp(main.Ui_MainWindow, QtWidgets.QMainWindow):
             QtWidgets.QMessageBox.about(self, "IP address", "Hey! \nYou need a name in order to launch the game\n")
         
         self.contentPacks.connect(self.content_pack_window)
+
     def content_pack_window(self):
         self.window = QtWidgets.QMainWindow()
-        self.content_packs = CPL.Ui_Form()
-        self.content_packs.show()
-        self.window.exec_()
+        self.ui = CPL.Ui_Form()
+        self.ui.setupUi(self.window)
+        MainWindow.hide()
+        self.window.show()
 
     def combo_options(self, txt):
-        if self.option.currentTextChanged.connect(self.localHost):
-            self.option.setCurrentIndex(0)
+        #if self.option.currentTextChanged.connect(self.localHost):
+        if self.option.currentTextChanged == "local"
+            self.option.setCurrentIndex(1)
             print("Username is: " + self.name.text())
             self.IP.setText("127.0.0.1")
             self.IP.setReadOnly(True)
