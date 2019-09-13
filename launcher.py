@@ -87,11 +87,6 @@ class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
                 print("Username is: " + self.name.text())
                 self.playButton.clicked.connect(self.local_host)
     
-
-            
-        
-        
-    
     # Code to log onto a server that has already been started
     def server_host(self):
         # Grabs the server text and IP to pass into panda
