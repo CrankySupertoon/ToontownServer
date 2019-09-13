@@ -3,23 +3,27 @@ import subprocess
 import os
 from ui import main, CPL 
 import sys
-import zipfile import *
+import zipfile
 # Created by Abrahan Nevarez
 class Content_Pack_Launcher(CPL.Ui_Form, QtWidgets.QMainWindow):
     def __init__(self, parent = None):
+
         super(Content_Pack_Launcher, self).__init__(parent)
+        self.setupUi(self)
+        self.load.clicked.connect(self.open_resource_folder)
 
-    # Opens the resource folder so the user can put in content folders
+    # Opens resource folder 
     def open_resource_folder(self):
-
-    # Replaces resource file with selected resource that is available in the directory
-    def replace_resource(self):
-
-    # Looks at directory, and checks for mf file,then unzips file and puts a zip content of the resources in folder
-    def unzip_mf(self):
-
-    # Zips up the default content pack
-    def zip_pack(self):
+        path = "/content_pack"
+        if os.path.isdir(path):
+            print("I'm in content packs!")
+            os.system(f'start {os.path.realpath(os.getcwd())}')
+        else:
+            print("Not in content pack folder, changing!")
+            content_pack_dir = os.chdir("content_pack")
+            content = os.getcwd()
+            os.system(f'start {os.path.realpath(os.getcwd())}')
+    
 
 # Initates the basic UI elements
 class MyApp(main.Ui_MainWindow, QtWidgets.QMainWindow):
@@ -34,18 +38,17 @@ class MyApp(main.Ui_MainWindow, QtWidgets.QMainWindow):
         if not self.name.text:
             QtWidgets.QMessageBox.about(self, "IP address", "Hey! \nYou need a name in order to launch the game\n")
         
-        self.contentPacks.connect(self.content_pack_window)
+        self.contentPacks.clicked.connect(self.content_pack_window)
 
     def content_pack_window(self):
-        self.window = QtWidgets.QMainWindow()
-        self.ui = CPL.Ui_Form()
-        self.ui.setupUi(self.window)
-        MainWindow.hide()
-        self.window.show()
+        self.hide()
+        cpl = Content_Pack_Launcher()
+        cpl.show()
+        cpl.exec_()
 
     def combo_options(self, txt):
         #if self.option.currentTextChanged.connect(self.localHost):
-        if self.option.currentTextChanged == "local"
+        if self.option.currentTextChanged == "local":
             self.option.setCurrentIndex(1)
             print("Username is: " + self.name.text())
             self.IP.setText("127.0.0.1")
