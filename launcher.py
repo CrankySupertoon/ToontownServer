@@ -16,8 +16,12 @@ class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
         self.setupUi(self)
         self.load.clicked.connect(self.open_resource_folder)
         self.back.clicked.connect(self.return_main)
-    # If no .mf exists, compress the resource folder into a .mf file and name it default, and add to combobox
 
+        self.name.setReadOnly(True)
+        self.author.setReadOnly(True)
+
+    # If no .mf exists, compress the resource folder into a .mf file and name it default, and add to combobox
+    
     def return_main(self):
         self.hide()
         main_win = main_window()
@@ -65,8 +69,8 @@ class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
 
     def combo_options(self, txt):
         #if self.option.currentTextChanged.connect(self.localHost):
-        if self.option.currentTextChanged == "local":
-            self.option.setCurrentIndex(1)
+        if self.option.currentTextChanged.connect(self.local_host):
+            self.option.setCurrentIndex(0)
             print("Username is: " + self.name.text())
             self.IP.setText("127.0.0.1")
             self.IP.setReadOnly(True)
