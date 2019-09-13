@@ -8,17 +8,15 @@ import zipfile
 
 # Content pack launcher
 # Lets the user select content packs and replace current resources with them
-# Must be in a zip of sorts
-# MF will be handled by panda
-# MF will be disassembled, then distributed throughout resources
-# Instantly accssible upon play time
+# Accepts .mf only
 class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
     def __init__(self, parent = None):
 
         super(Content_Pack_Launcher, self).__init__(parent)
         self.setupUi(self)
         self.load.clicked.connect(self.open_resource_folder)
-
+        
+        # If no .mf exists, compress the resource folder into a .mf file and name it default, and add to combobox
     # Opens resource folder 
     def open_resource_folder(self):
         path = "/content_pack"
@@ -30,7 +28,13 @@ class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
         else:
             print("I'm in content packs!")
             os.system(f'start {os.path.realpath(os.getcwd())}')
-    
+
+    # Zips up the default files of the server into a .mf for later use       
+    def default_content_pack(self):
+
+    # Opens the contents of the zip file and looks for mf file
+    # replaces the contents of the resource folder with the resources provided with the .mf
+    def content_pack_opener(self):
 
 # Initates the basic UI elements
 class MyApp(main.Ui_MainWindow, QtWidgets.QMainWindow):

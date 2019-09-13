@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file 'CPL.ui',
 # licensing of 'CPL.ui' applies.
 #
-# Created: Fri Sep 13 15:00:23 2019
+# Created: Fri Sep 13 15:51:16 2019
 #      by: pyside2-uic  running on PySide2 5.13.0
 #
 # WARNING! All changes made in this file will be lost!
@@ -20,9 +20,6 @@ class Ui_CPL(object):
         self.load = QtWidgets.QPushButton(CPL)
         self.load.setGeometry(QtCore.QRect(0, 20, 171, 23))
         self.load.setObjectName("load")
-        self.contentPacks = QtWidgets.QComboBox(CPL)
-        self.contentPacks.setGeometry(QtCore.QRect(0, 70, 571, 22))
-        self.contentPacks.setObjectName("contentPacks")
         self.name = QtWidgets.QLineEdit(CPL)
         self.name.setGeometry(QtCore.QRect(80, 100, 171, 20))
         self.name.setObjectName("name")
@@ -39,6 +36,9 @@ class Ui_CPL(object):
         self.back = QtWidgets.QPushButton(CPL)
         self.back.setGeometry(QtCore.QRect(0, 410, 171, 23))
         self.back.setObjectName("back")
+        self.load_2 = QtWidgets.QPushButton(CPL)
+        self.load_2.setGeometry(QtCore.QRect(0, 60, 251, 23))
+        self.load_2.setObjectName("load_2")
 
         self.retranslateUi(CPL)
         QtCore.QMetaObject.connectSlotsByName(CPL)
@@ -46,7 +46,8 @@ class Ui_CPL(object):
     def retranslateUi(self, CPL):
         CPL.setWindowTitle(QtWidgets.QApplication.translate("CPL", "Content Pack Launcher", None, -1))
         self.label_5.setText(QtWidgets.QApplication.translate("CPL", "Name", None, -1))
-        self.load.setText(QtWidgets.QApplication.translate("CPL", "Load folder", None, -1))
+        self.load.setText(QtWidgets.QApplication.translate("CPL", "Open folder", None, -1))
         self.label_6.setText(QtWidgets.QApplication.translate("CPL", "Author", None, -1))
         self.back.setText(QtWidgets.QApplication.translate("CPL", "Back", None, -1))
+        self.load_2.setText(QtWidgets.QApplication.translate("CPL", "Load content pack", None, -1))
 
