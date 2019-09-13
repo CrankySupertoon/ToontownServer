@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file 'CPL.ui',
 # licensing of 'CPL.ui' applies.
 #
-# Created: Thu Sep 12 18:28:22 2019
+# Created: Fri Sep 13 15:00:23 2019
 #      by: pyside2-uic  running on PySide2 5.13.0
 #
 # WARNING! All changes made in this file will be lost!

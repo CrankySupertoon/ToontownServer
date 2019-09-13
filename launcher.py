@@ -12,7 +12,7 @@ import zipfile
 # MF will be handled by panda
 # MF will be disassembled, then distributed throughout resources
 # Instantly accssible upon play time
-class Content_Pack_Launcher(CPL.Ui_Form, QtWidgets.QMainWindow):
+class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
     def __init__(self, parent = None):
 
         super(Content_Pack_Launcher, self).__init__(parent)
@@ -45,7 +45,7 @@ class MyApp(main.Ui_MainWindow, QtWidgets.QMainWindow):
         if not self.name.text:
             QtWidgets.QMessageBox.about(self, "IP address", "Hey! \nYou need a name in order to launch the game\n")
         
-        self.contentPacks.clicked.connect(self.content_pack_window)
+        self.cp.clicked.connect(self.content_pack_window)
 
     def content_pack_window(self):
         self.hide()
