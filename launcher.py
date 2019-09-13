@@ -15,8 +15,14 @@ class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
         super(Content_Pack_Launcher, self).__init__(parent)
         self.setupUi(self)
         self.load.clicked.connect(self.open_resource_folder)
-        
-        # If no .mf exists, compress the resource folder into a .mf file and name it default, and add to combobox
+        self.back.clicked.connect(self.return_main)
+    # If no .mf exists, compress the resource folder into a .mf file and name it default, and add to combobox
+
+    def return_main(self):
+        self.hide()
+        main_win = main_window()
+        main_win.show()
+        main_win.exec_()
     # Opens resource folder 
     def open_resource_folder(self):
         path = "/content_pack"
@@ -34,13 +40,13 @@ class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
 
     # Opens the contents of the zip file and looks for mf file
     # replaces the contents of the resource folder with the resources provided with the .mf
-    def content_pack_opener(self):
-
+        def content_pack_opener(self):
+            print("test")
 # Initates the basic UI elements
-class MyApp(main.Ui_MainWindow, QtWidgets.QMainWindow):
+class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
     
     def __init__(self):
-        super(MyApp, self).__init__()
+        super(main_window, self).__init__()
         self.setupUi(self)
         
         # Sets the combobox item value to a blank item
@@ -115,7 +121,7 @@ class MyApp(main.Ui_MainWindow, QtWidgets.QMainWindow):
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication()
-    qt_app = MyApp()
+    qt_app = main_window()
     qt_app.show()
     app.exec_()
 
