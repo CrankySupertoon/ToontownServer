@@ -1,13 +1,13 @@
 from PySide2 import QtWidgets
 import subprocess
 import os
-from ui import main, CPL 
+from ui import main, CPL, test
 import sys
 import zipfile import *
 # Created by Abrahan Nevarez
-class Content_Pack_Launcher(CPL.Ui_Form, QtWidgets.QMainWindow):
+class content_pack_launcher(test.Ui_MainWindow, QtWidgets.QMainWindow):
     def __init__(self, parent = None):
-        super(Content_Pack_Launcher, self).__init__(parent)
+        super(content_pack_launcher, self).__init__(parent)
 
     # Opens the resource folder so the user can put in content folders
     def open_resource_folder(self):
@@ -20,6 +20,8 @@ class Content_Pack_Launcher(CPL.Ui_Form, QtWidgets.QMainWindow):
 
     # Zips up the default content pack
     def zip_pack(self):
+    print("test")
+   
 
 # Initates the basic UI elements
 class MyApp(main.Ui_MainWindow, QtWidgets.QMainWindow):
@@ -34,14 +36,11 @@ class MyApp(main.Ui_MainWindow, QtWidgets.QMainWindow):
         if not self.name.text:
             QtWidgets.QMessageBox.about(self, "IP address", "Hey! \nYou need a name in order to launch the game\n")
         
-        self.contentPacks.connect(self.content_pack_window)
+        self.cp.clicked.connect(self.content_pack_window)
 
     def content_pack_window(self):
-        self.window = QtWidgets.QMainWindow()
-        self.ui = CPL.Ui_Form()
-        self.ui.setupUi(self.window)
-        MainWindow.hide()
-        self.window.show()
+        print("Test")
+        #self.content_pack_window = content_pack_launcher()
 
     def combo_options(self, txt):
         #if self.option.currentTextChanged.connect(self.localHost):

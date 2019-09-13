@@ -1,48 +1,52 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'contentPackLauncher.ui',
-# licensing of 'contentPackLauncher.ui' applies.
+# Form implementation generated from reading ui file 'CPL.ui',
+# licensing of 'CPL.ui' applies.
 #
-# Created: Thu Sep  5 20:16:11 2019
+# Created: Thu Sep 12 18:28:22 2019
 #      by: pyside2-uic  running on PySide2 5.13.0
 #
 # WARNING! All changes made in this file will be lost!
 
 from PySide2 import QtCore, QtGui, QtWidgets
 
-class Ui_Form(object):
-    def setupUi(self, Form):
-        Form.setObjectName("Form")
-        Form.resize(578, 449)
-        self.label_5 = QtWidgets.QLabel(Form)
+class Ui_CPL(object):
+    def setupUi(self, CPL):
+        CPL.setObjectName("CPL")
+        CPL.resize(578, 449)
+        self.label_5 = QtWidgets.QLabel(CPL)
         self.label_5.setGeometry(QtCore.QRect(0, 100, 81, 16))
         self.label_5.setObjectName("label_5")
-        self.load = QtWidgets.QPushButton(Form)
+        self.load = QtWidgets.QPushButton(CPL)
         self.load.setGeometry(QtCore.QRect(0, 20, 171, 23))
         self.load.setObjectName("load")
-        self.contentPacks = QtWidgets.QComboBox(Form)
+        self.contentPacks = QtWidgets.QComboBox(CPL)
         self.contentPacks.setGeometry(QtCore.QRect(0, 70, 571, 22))
         self.contentPacks.setObjectName("contentPacks")
-        self.name = QtWidgets.QLineEdit(Form)
+        self.name = QtWidgets.QLineEdit(CPL)
         self.name.setGeometry(QtCore.QRect(80, 100, 171, 20))
         self.name.setObjectName("name")
-        self.label_6 = QtWidgets.QLabel(Form)
+        self.label_6 = QtWidgets.QLabel(CPL)
         self.label_6.setGeometry(QtCore.QRect(0, 140, 81, 16))
         self.label_6.setObjectName("label_6")
-        self.author = QtWidgets.QLineEdit(Form)
+        self.author = QtWidgets.QLineEdit(CPL)
         self.author.setGeometry(QtCore.QRect(80, 140, 171, 20))
         self.author.setObjectName("author")
-        self.contentPackPic = QtWidgets.QLabel(Form)
+        self.contentPackPic = QtWidgets.QLabel(CPL)
         self.contentPackPic.setGeometry(QtCore.QRect(80, 170, 171, 111))
         self.contentPackPic.setText("")
         self.contentPackPic.setObjectName("contentPackPic")
+        self.back = QtWidgets.QPushButton(CPL)
+        self.back.setGeometry(QtCore.QRect(0, 410, 171, 23))
+        self.back.setObjectName("back")
 
-        self.retranslateUi(Form)
-        QtCore.QMetaObject.connectSlotsByName(Form)
+        self.retranslateUi(CPL)
+        QtCore.QMetaObject.connectSlotsByName(CPL)
 
-    def retranslateUi(self, Form):
-        Form.setWindowTitle(QtWidgets.QApplication.translate("Form", "Form", None, -1))
-        self.label_5.setText(QtWidgets.QApplication.translate("Form", "Name", None, -1))
-        self.load.setText(QtWidgets.QApplication.translate("Form", "Load folder", None, -1))
-        self.label_6.setText(QtWidgets.QApplication.translate("Form", "Author", None, -1))
+    def retranslateUi(self, CPL):
+        CPL.setWindowTitle(QtWidgets.QApplication.translate("CPL", "Content Pack Launcher", None, -1))
+        self.label_5.setText(QtWidgets.QApplication.translate("CPL", "Name", None, -1))
+        self.load.setText(QtWidgets.QApplication.translate("CPL", "Load folder", None, -1))
+        self.label_6.setText(QtWidgets.QApplication.translate("CPL", "Author", None, -1))
+        self.back.setText(QtWidgets.QApplication.translate("CPL", "Back", None, -1))
 

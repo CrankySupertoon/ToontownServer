@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file 'main.ui',
 # licensing of 'main.ui' applies.
 #
-# Created: Thu Sep  5 20:11:51 2019
+# Created: Wed Sep 11 22:37:48 2019
 #      by: pyside2-uic  running on PySide2 5.13.0
 #
 # WARNING! All changes made in this file will be lost!
@@ -39,10 +39,10 @@ class Ui_MainWindow(object):
         self.playButton = QtWidgets.QPushButton(self.centralwidget)
         self.playButton.setGeometry(QtCore.QRect(100, 240, 171, 23))
         self.playButton.setObjectName("playButton")
-        self.contentPacks = QtWidgets.QPushButton(self.centralwidget)
-        self.contentPacks.setGeometry(QtCore.QRect(100, 110, 171, 23))
-        self.contentPacks.setText("")
-        self.contentPacks.setObjectName("contentPacks")
+        self.cp = QtWidgets.QPushButton(self.centralwidget)
+        self.cp.setGeometry(QtCore.QRect(100, 110, 171, 23))
+        self.cp.setText("")
+        self.cp.setObjectName("cp")
         self.label_4 = QtWidgets.QLabel(self.centralwidget)
         self.label_4.setGeometry(QtCore.QRect(20, 110, 81, 16))
         self.label_4.setObjectName("label_4")

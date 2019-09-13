@@ -106,7 +106,7 @@
      <string>Play Game</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="contentPacks">
+   <widget class="QPushButton" name="cp">
     <property name="geometry">
      <rect>
       <x>100</x>
