@@ -29,3 +29,13 @@ Sepetember 11th, 2019
     - Finish writing Linux/Mac OSX installers
     - Pretty up UI, very barebones
     - Move the folder to appdata for Windows, and other directories for other operating systems
+
+September 12th, 2019
+- Currently accomplished:
+    - User can now access a content pack menu
+    - Users can now access the default directory for resources
+    - Will autogenerate a folder if it's not there
+    - Will zip the contents of default contents and let user select it
+
+- Left to do:
+    - Finish the content pack menu
