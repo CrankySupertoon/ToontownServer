@@ -5,6 +5,12 @@ from ui import main, CPL
 import sys
 import zipfile
 # Created by Abrahan Nevarez
+
+# Content pack launcher
+# Lets the user select content packs and replace current resources with them
+# Must be in a zip of sorts
+# MF will be handled by panda
+# MF will be disassembled, then distributed
 class Content_Pack_Launcher(CPL.Ui_Form, QtWidgets.QMainWindow):
     def __init__(self, parent = None):
 
@@ -15,13 +21,13 @@ class Content_Pack_Launcher(CPL.Ui_Form, QtWidgets.QMainWindow):
     # Opens resource folder 
     def open_resource_folder(self):
         path = "/content_pack"
-        if os.path.isdir(path):
-            print("I'm in content packs!")
-            os.system(f'start {os.path.realpath(os.getcwd())}')
-        else:
+        if os.path.isdir(path) is not True:
             print("Not in content pack folder, changing!")
             content_pack_dir = os.chdir("content_pack")
             content = os.getcwd()
+            os.system(f'start {os.path.realpath(os.getcwd())}')
+        else:
+            print("I'm in content packs!")
             os.system(f'start {os.path.realpath(os.getcwd())}')
     
 
