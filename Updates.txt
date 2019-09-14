@@ -1,0 +1,31 @@
+March 11th 2019
+- Used XML in order to add configurations for Panda3D
+
+March 28th 2019
+- Moved over from .bat to a QT launcher, will come shortly.
+
+Sepetember 11th, 2019
+- Currently accomplished:
+    - Basic functionality of the launcher is finished, has been recoded using Pyside2
+    - UI for content pack selection is finished, needs to be programmed
+
+- Bugs:
+    - Server cannot be selected on launcher due to the signal from combobox, easy fix
+
+- Left to do:
+    - Finish the content pack menu so users may select content packs within the specified directory.
+    - Pack the python files and directories into a singular .exe file to install
+    - Cache the location of Panda3D into a local file
+    - Finish writing Linux/Mac OSX installers
+    - Pretty up UI, very barebones
+    - Move the folder to appdata for Windows, and other directories for other operating systems
+
+September 12th, 2019
+- Currently accomplished:
+    - User can now access a content pack menu
+    - Users can now access the default directory for resources
+    - Will autogenerate a folder if it's not there
+    - Will zip the contents of default contents and let user select it
+
+- Left to do:
+    - Finish the content pack menu
