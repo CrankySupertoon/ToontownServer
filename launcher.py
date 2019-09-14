@@ -1,6 +1,10 @@
 # Created by Abrahan Nevarez on August 24th 2019
 # Created for the use of the base game Toontown Stride
 # Can be modified for other servers
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 import os
 import subprocess
 import sys
@@ -91,6 +95,79 @@ def content_pack_opener(self):
     file = QFileDialog.getOpenFileName(self, tr("Open mf"), path, tr("MF files (*.mf)"))
 
 
+<<<<<<< Updated upstream
+=======
+        if open("default.mf", 'w'):
+            print("Current dir is : %s", os.getcwd())
+            #print("Ok, let's compress that bad boi!")
+
+            if os.path.isdir(resources_dir):
+                print("Currently in resources, no need to change!")
+            else:
+                print("Not present in resources... changing...")
+                os.chdir("../")
+                print("Current dir is : %s", os.getcwd())
+                resources_path = os.chdir("resources")
+                print("Current dir is : %s", os.getcwd())
+
+
+            #folder_name = os.getcwd()
+            #retrieve_file(dir_name)
+            #zipper(dir_name)
+
+
+            # Selects all the files and compresses
+
+    def return_main(self):
+        self.hide()
+        main_win = main_window()
+        main_win.show()
+        main_win.exec_()
+
+            # Opens resource folder 
+
+        def open_resource_folder(self):
+            if os.path.isdir(path) is not True:
+                print("Not in content pack folder, changing!")
+                content_pack_dir = os.chdir("content_pack")
+                content = os.getcwd()
+                os.system(f'start {os.path.realpath(os.getcwd())}')
+            else:
+                print("I'm in content packs!")
+                os.system(f'start {os.path.realpath(os.getcwd())}')
+
+            def retrieve_file(dir_name):
+                # setup file paths variable
+                filePaths = []
+
+                # Read all directory, subdirectories and file lists
+                for root, directories, files in os.walk(dir_name):
+                    for filename in files:
+                        # Create the full filepath by using os module.
+                        filePath = os.path.join(root, filename)
+                        filePaths.append(filePath)
+
+            # return all paths
+            return filePaths
+
+        def zipper(dir_name):
+            # writing files to a zipfile
+            zip_file = zipfile.ZipFile(dir_name + '.zip', 'w')
+            with zip_file:
+                # writing each file one by one
+                for file in filePaths:
+                    zip_file.write(file)
+
+        print(dir_name + '.zip file is created successfully!')
+
+
+# Opens the contents of the zip file and looks for mf file
+# replaces the contents of the resource folder with the resources provided with the .mf
+def content_pack_opener(self):
+    file = QFileDialog.getOpenFileName(self, tr("Open mf"), path, tr("MF files (*.mf)"))
+
+
+>>>>>>> Stashed changes
 # Initates the basic UI elements
 class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
 
