@@ -20,7 +20,6 @@ class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         super(Content_Pack_Launcher, self).__init__(parent)
         self.setupUi(self)
-<<<<<<< Updated upstream
         path = "/content_pack"
         # Checks if content pack folder is made, otherwise make it
         if os.path.isdir(path):
@@ -28,31 +27,13 @@ class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
         else:
             print("this does not exist, now making!")
             os.makedirs(path)
-=======
-        path = "content_packs"
-        dir_name = "default_pack"
-        resources_dir = "/resources"
-
-        # Checks if content pack folder is made, otherwise make it
-        if os.path.isdir(path):
-            print("This exists, not going to create a new folder, let's switch into it!\n")
-            os.chdir(path)
-        else:
-            print("this does not exist, now making!")
-            os.makedirs(path)
-            os.chdir("/content_packs")
->>>>>>> Stashed changes
 
         # self.load.clicked.connect(self.open_resource_folder)
         self.back.clicked.connect(self.return_main)
 
         self.name.setReadOnly(True)
         self.author.setReadOnly(True)
-<<<<<<< Updated upstream
         self.load2.clicked.connect(self.content_pack_opener)
-=======
-        #self.load2.clicked.connect(self.content_pack_opener)
->>>>>>> Stashed changes
 
         # If no .mf exists, compress the resource folder into a .mf file and name it default, and add to combobox
         os.chdir("content_pack")
