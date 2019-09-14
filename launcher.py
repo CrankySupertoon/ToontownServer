@@ -1,10 +1,8 @@
 # Created by Abrahan Nevarez on August 24th 2019
 # Created for the use of the base game Toontown Stride
 # Can be modified for other servers
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
+
 import os
 import subprocess
 import sys
@@ -20,95 +18,45 @@ class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         super(Content_Pack_Launcher, self).__init__(parent)
         self.setupUi(self)
-        path = "/content_pack"
+        path = "content_packs"
+        resources_dir = "resources"
         # Checks if content pack folder is made, otherwise make it
         if os.path.isdir(path):
             print("this exists, doing nothing!\n")
+            os.chdir(path)
+            print("Current dir is : %s", os.getcwd())
+            self.load.clicked.connect(self.open_resource_folder)
         else:
             print("this does not exist, now making!")
             os.makedirs(path)
+            os.chdir(path)
+            
 
         # self.load.clicked.connect(self.open_resource_folder)
         self.back.clicked.connect(self.return_main)
 
         self.name.setReadOnly(True)
         self.author.setReadOnly(True)
-        self.load2.clicked.connect(self.content_pack_opener)
+        #self.load2.clicked.connect(self.content_pack_opener)
 
-        # If no .mf exists, compress the resource folder into a .mf file and name it default, and add to combobox
-        os.chdir("content_pack")
-        '''if (open("default.mf", 'w')):
-            print("yay, the default file is compressed!")
-        else:
-            print("Ok, let's compress that bad boi!")
-            os.chdir("../resources/")
-            dir_name = os.getcwd()
-            retrieve_file(dir_name)
-            zipper(dir_name)'''
-            # Selects all the files and compresses
-
-        def return_main(self):
-            self.hide()
-            main_win = main_window()
-            main_win.show()
-            main_win.exec_()
-
-            # Opens resource folder 
-
-        def open_resource_folder(self):
-            if os.path.isdir(path) is not True:
-                print("Not in content pack folder, changing!")
-                content_pack_dir = os.chdir("content_pack")
-                content = os.getcwd()
-                os.system(f'start {os.path.realpath(os.getcwd())}')
-            else:
-                print("I'm in content packs!")
-                os.system(f'start {os.path.realpath(os.getcwd())}')
-
-        '''def retrieve_file(dir_name):
-            # setup file paths variable
-            filePaths = []
-
-            # Read all directory, subdirectories and file lists
-            for root, directories, files in os.walk(dir_name):
-                for filename in files:
-                    # Create the full filepath by using os module.
-                    filePath = os.path.join(root, filename)
-                    filePaths.append(filePath)
-
-            # return all paths
-            return filePaths
-
-        def zipper(dir_name):
-            # writing files to a zipfile
-            zip_file = zipfile.ZipFile(dir_name + '.zip', 'w')
-            with zip_file:
-                # writing each file one by one
-                for file in filePaths:
-                    zip_file.write(file)
-
-
-print(dir_name + '.zip file is created successfully!')'''
-# Opens the contents of the zip file and looks for mf file
-# replaces the contents of the resource folder with the resources provided with the .mf
-def content_pack_opener(self):
-    file = QFileDialog.getOpenFileName(self, tr("Open mf"), path, tr("MF files (*.mf)"))
-
-
-<<<<<<< Updated upstream
-=======
         if open("default.mf", 'w'):
-            print("Current dir is : %s", os.getcwd())
-            #print("Ok, let's compress that bad boi!")
-
-            if os.path.isdir(resources_dir):
-                print("Currently in resources, no need to change!")
-            else:
-                print("Not present in resources... changing...")
-                os.chdir("../")
-                print("Current dir is : %s", os.getcwd())
-                resources_path = os.chdir("resources")
-                print("Current dir is : %s", os.getcwd())
+            try:
+                if os.path.isdir(resources_dir):
+                    print("Currently in resources, no need to change!")
+                else:
+                    print("Not present in resources... changing...")
+                    os.chdir("../")
+                    print("Current dir is : %s", os.getcwd())
+                    if os.path.isdir(resources_dir):
+                        print("I'm here to prevent an error when there's a folder error\n")
+                    else:
+                        resources_path = os.chdir("resources")
+                        print("Current dir is : %s", os.getcwd())
+                        print("Now done with directory change")
+                    
+            except ValueError:
+                print("Wtf man...why am I doing this twice?")
+            
 
 
             #folder_name = os.getcwd()
@@ -117,6 +65,7 @@ def content_pack_opener(self):
 
 
             # Selects all the files and compresses
+            
 
     def return_main(self):
         self.hide()
@@ -126,15 +75,10 @@ def content_pack_opener(self):
 
             # Opens resource folder 
 
-        def open_resource_folder(self):
-            if os.path.isdir(path) is not True:
-                print("Not in content pack folder, changing!")
-                content_pack_dir = os.chdir("content_pack")
-                content = os.getcwd()
-                os.system(f'start {os.path.realpath(os.getcwd())}')
-            else:
-                print("I'm in content packs!")
-                os.system(f'start {os.path.realpath(os.getcwd())}')
+    def open_resource_folder(self, path):
+        if os.path.isdir(path):
+            print("I'm in content packs!")
+            os.system(f'start {os.path.realpath(os.getcwd())}')
 
             def retrieve_file(dir_name):
                 # setup file paths variable
@@ -167,7 +111,7 @@ def content_pack_opener(self):
     file = QFileDialog.getOpenFileName(self, tr("Open mf"), path, tr("MF files (*.mf)"))
 
 
->>>>>>> Stashed changes
+
 # Initates the basic UI elements
 class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
 
