@@ -98,7 +98,7 @@
     <string>Back</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="load_2">
+  <widget class="QPushButton" name="load_cp">
    <property name="geometry">
     <rect>
      <x>0</x>

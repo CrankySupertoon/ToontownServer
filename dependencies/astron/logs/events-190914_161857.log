@@ -735,3 +735,5 @@
 {"_time": "2019-09-14 16:33:09Eastern Daylight Time", "type": "avatarExit", "sender": "AIR:401000000", "_1": 401001368, "_2": ""}
 {"_time": "2019-09-14 16:34:53Eastern Daylight Time", "type": "building-cog", "sender": "AIR:401000000", "_1": 401003304, "_2": "9100|39|l|3"}
 {"_time": "2019-09-14 16:34:53Eastern Daylight Time", "type": "avatarExit", "sender": "AIR:401000000", "_1": 401003305, "_2": ""}
+{"_time": "2019-09-14 16:38:27Eastern Daylight Time", "type": "client-lost", "sender": "Client:1000000000", "reason": "An existing connection was forcibly closed by the remote host"}
+{"_time": "2019-09-14 16:38:27Eastern Daylight Time", "type": "avatarExit", "sender": "AIR:401000000", "_1": 100000015, "_2": ""}

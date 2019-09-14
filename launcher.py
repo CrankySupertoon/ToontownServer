@@ -2,12 +2,12 @@
 # Created for the use of the base game Toontown Stride
 # Can be modified for other servers
 
-
 import os
 import subprocess
 import sys
 import zipfile
-from PySide2 import QtWidgets
+from PySide2 import QtWidgets, QtCore, QtGui
+
 from ui import main, CPL
 
 
@@ -20,6 +20,8 @@ class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
         self.setupUi(self)
         path = "content_packs"
         resources_dir = "resources"
+        default_name = "default"
+
         # Checks if content pack folder is made, otherwise make it
         if os.path.isdir(path):
             print("this exists, doing nothing!\n")
@@ -34,10 +36,9 @@ class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
 
         # self.load.clicked.connect(self.open_resource_folder)
         self.back.clicked.connect(self.return_main)
-
         self.name.setReadOnly(True)
         self.author.setReadOnly(True)
-        #self.load2.clicked.connect(self.content_pack_opener)
+        self.load_cp.clicked.connect(self.content_pack_opener)
 
         if open("default.mf", 'w'):
             try:
@@ -57,16 +58,6 @@ class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
             except ValueError:
                 print("Wtf man...why am I doing this twice?")
             
-
-
-            #folder_name = os.getcwd()
-            #retrieve_file(dir_name)
-            #zipper(dir_name)
-
-
-            # Selects all the files and compresses
-            
-
     def return_main(self):
         self.hide()
         main_win = main_window()
@@ -94,21 +85,21 @@ class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
             # return all paths
             return filePaths
 
-        def zipper(dir_name):
-            # writing files to a zipfile
-            zip_file = zipfile.ZipFile(dir_name + '.zip', 'w')
-            with zip_file:
-                # writing each file one by one
-                for file in filePaths:
-                    zip_file.write(file)
+    def zipper(dir_name):
+        # writing files to a zipfile
+        zip_file = zipfile.ZipFile(dir_name + '.zip', 'w')
+        with zip_file:
+            # writing each file one by one
+            for file in filePaths:
+                zip_file.write(file)
 
         print(dir_name + '.zip file is created successfully!')
 
-
-# Opens the contents of the zip file and looks for mf file
-# replaces the contents of the resource folder with the resources provided with the .mf
-def content_pack_opener(self):
-    file = QFileDialog.getOpenFileName(self, tr("Open mf"), path, tr("MF files (*.mf)"))
+        
+    # Opens the contents of the zip file and looks for mf file
+    # replaces the contents of the resource folder with the resources provided with the .mf
+    def content_pack_opener(self):
+        file = QtWidgets.QFileDialog.getOpenFileName(self, self.tr("Open mf"), self.tr("content_packs"), self.tr("MF files (*.mf)"))
 
 
 
