@@ -6,26 +6,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>578</width>
-    <height>449</height>
+    <width>178</width>
+    <height>164</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Content Pack Launcher</string>
   </property>
-  <widget class="QLabel" name="label_5">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>100</y>
-     <width>81</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Name</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="load">
    <property name="geometry">
     <rect>
@@ -37,39 +24,6 @@
    </property>
    <property name="text">
     <string>Open folder</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="name">
-   <property name="geometry">
-    <rect>
-     <x>80</x>
-     <y>100</y>
-     <width>171</width>
-     <height>20</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_6">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>140</y>
-     <width>81</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Author</string>
-   </property>
-  </widget>
-  <widget class="QLineEdit" name="author">
-   <property name="geometry">
-    <rect>
-     <x>80</x>
-     <y>140</y>
-     <width>171</width>
-     <height>20</height>
-    </rect>
    </property>
   </widget>
   <widget class="QLabel" name="contentPackPic">
@@ -89,7 +43,7 @@
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>410</y>
+     <y>110</y>
      <width>171</width>
      <height>23</height>
     </rect>
@@ -103,7 +57,7 @@
     <rect>
      <x>0</x>
      <y>60</y>
-     <width>251</width>
+     <width>171</width>
      <height>23</height>
     </rect>
    </property>

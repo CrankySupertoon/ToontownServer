@@ -7,9 +7,9 @@ import subprocess
 import sys
 import zipfile
 from PySide2 import QtWidgets, QtCore, QtGui
-
+import shutil
+from pathlib import Path
 from ui import main, CPL
-
 
 # Content pack launcher
 # Lets the user select content packs and replace current resources with them
@@ -36,8 +36,6 @@ class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
 
         # self.load.clicked.connect(self.open_resource_folder)
         self.back.clicked.connect(self.return_main)
-        self.name.setReadOnly(True)
-        self.author.setReadOnly(True)
         self.load_cp.clicked.connect(self.content_pack_opener)
 
         if open("default.mf", 'w'):
@@ -57,21 +55,24 @@ class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
                     
             except ValueError:
                 print("Wtf man...why am I doing this twice?")
-            
+
+    # Is the back button, returns to main menu       
     def return_main(self):
         self.hide()
         main_win = main_window()
         main_win.show()
         main_win.exec_()
 
-            # Opens resource folder 
-
+    # Opens resource folder 
     def open_resource_folder(self, path):
-        if os.path.isdir(path):
-            print("I'm in content packs!")
-            os.system(f'start {os.path.realpath(os.getcwd())}')
+        if os.path.isdir("content_packs"):
+            os.chdir("content_packs")
 
-            def retrieve_file(dir_name):
+            if os.path.isdir("content_packs"):
+                os.system(f'start {os.path.realpath(os.getcwd())}')
+                os.chdir("../")
+
+            '''def retrieve_file(dir_name):
                 # setup file paths variable
                 filePaths = []
 
@@ -93,16 +94,19 @@ class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
             for file in filePaths:
                 zip_file.write(file)
 
-        print(dir_name + '.zip file is created successfully!')
+        print(dir_name + '.zip file is created successfully!')'''
 
         
     # Opens the contents of the zip file and looks for mf file
     # replaces the contents of the resource folder with the resources provided with the .mf
     def content_pack_opener(self):
-        file = QtWidgets.QFileDialog.getOpenFileName(self, self.tr("Open mf"), self.tr("content_packs"), self.tr("MF files (*.mf)"))
-
-
-
+        file, filename = QtWidgets.QFileDialog.getOpenFileName(self, self.tr("Open mf"), self.tr("content_packs"), self.tr("MF files (*.mf)"))
+        os.chdir("content_packs")
+        # Allows us to break the path into multiple segments
+        p = Path(file)
+        # Decompresses the .mf files
+        subprocess.Popen("multify.exe -x -f " + p.name, shell=False)
+        
 # Initates the basic UI elements
 class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
 
