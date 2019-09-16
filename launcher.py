@@ -26,7 +26,7 @@ class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
         if os.path.isdir(path):
             print("this exists, doing nothing!\n")
             os.chdir(path)
-            print("Current dir is : %s", os.getcwd())
+            print("Current dir is : ", os.getcwd())
             self.load.clicked.connect(self.open_resource_folder)
         else:
             print("this does not exist, now making!")
@@ -45,12 +45,12 @@ class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
                 else:
                     print("Not present in resources... changing...")
                     os.chdir("../")
-                    print("Current dir is : %s", os.getcwd())
+                    print("Current dir is : ", os.getcwd())
                     if os.path.isdir(resources_dir):
                         print("I'm here to prevent an error when there's a folder error\n")
                     else:
                         resources_path = os.chdir("resources")
-                        print("Current dir is : %s", os.getcwd())
+                        print("Current dir is : ", os.getcwd())
                         print("Now done with directory change")
                     
             except ValueError:
@@ -62,6 +62,8 @@ class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
         main_win = main_window()
         main_win.show()
         main_win.exec_()
+        print("Now returning to main menu!")
+        os.chdir("../")
 
     # Opens resource folder 
     def open_resource_folder(self, path):
@@ -102,10 +104,22 @@ class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
     def content_pack_opener(self):
         file, filename = QtWidgets.QFileDialog.getOpenFileName(self, self.tr("Open mf"), self.tr("content_packs"), self.tr("MF files (*.mf)"))
         os.chdir("content_packs")
+        #des_dir = os.chdir("C:\Users\Abrahan\Documents\GitHub\Toontown_Server\resources")
         # Allows us to break the path into multiple segments
         p = Path(file)
         # Decompresses the .mf files
-        subprocess.Popen("multify.exe -x -f " + p.name, shell=False)
+        print("Now unzipping .mf file...please hold")
+        content_pack_unzip = subprocess.Popen("multify.exe -x -f " + p.name, shell=False)
+        content_pack_unzip.wait()
+        print("Okay, I'm done unzipping all the files:")
+        print("Now moving files to resources!")
+        for file_name in os.listdir(os.getcwd()):
+            if not file_name.endswith(".mf"):
+                print(file_name)
+                shutil.move(file_name, "../resources")
+        print("Success! Now launch the game with your new files")
+        os.chdir("../")
+            
         
 # Initates the basic UI elements
 class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
@@ -122,7 +136,7 @@ class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
             QtWidgets.QMessageBox.about(self, "IP address", "Hey! \nYou need a name in order to launch the game\n")
 
         self.cp.clicked.connect(self.content_pack_window)
-
+        print("Directory is currently: " + os.getcwd())
     # Opens the content pack window
     def content_pack_window(self):
         self.hide()
