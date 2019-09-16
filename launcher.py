@@ -104,19 +104,23 @@ class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
     def content_pack_opener(self):
         file, filename = QtWidgets.QFileDialog.getOpenFileName(self, self.tr("Open mf"), self.tr("content_packs"), self.tr("MF files (*.mf)"))
         os.chdir("content_packs")
-        #des_dir = os.chdir("C:\Users\Abrahan\Documents\GitHub\Toontown_Server\resources")
+
         # Allows us to break the path into multiple segments
         p = Path(file)
+
         # Decompresses the .mf files
         print("Now unzipping .mf file...please hold")
         content_pack_unzip = subprocess.Popen("multify.exe -x -f " + p.name, shell=False)
         content_pack_unzip.wait()
+
         print("Okay, I'm done unzipping all the files:")
         print("Now moving files to resources!")
+
         for file_name in os.listdir(os.getcwd()):
             if not file_name.endswith(".mf"):
                 print(file_name)
                 shutil.move(file_name, "../resources")
+
         print("Success! Now launch the game with your new files")
         os.chdir("../")
             
@@ -154,7 +158,7 @@ class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
 
             self.IP.setText("127.0.0.1")
             self.IP.setReadOnly(True)
-
+            # Checks if platform is linux or windows
             if platform == "linux" or platform == "linux2":
                 self.playButton.clicked.connect(self.linux_local_host)
             if platform == "win32":
