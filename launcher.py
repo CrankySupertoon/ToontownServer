@@ -4,7 +4,7 @@
 
 import os
 import subprocess
-import sys
+import sys import platform
 import zipfile
 from PySide2 import QtWidgets, QtCore, QtGui
 import shutil
@@ -145,19 +145,26 @@ class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
         cpl.exec_()
 
     def combo_options(self, index):
+        platform = sys.platform()
         if index == "Local":
             print("Local")
             self.option.setCurrentIndex(0)
+
             print("Username is: " + self.name.text())
+
             self.IP.setText("127.0.0.1")
             self.IP.setReadOnly(True)
-            self.playButton.clicked.connect(self.local_host)
+
+            if platform == "linux" or platform == "linux2":
+                self.playButton.clicked.connect(self.linux_local_host)
+            if platform == "win32":
+                self.playButton.clicked.connect(self.win32_local_host)
         else:
             print("Server")
             self.option.setCurrentIndex(1)
             self.IP.setText("")
             print("Username is: " + self.name.text())
-            self.playButton.clicked.connect(self.local_host)
+            self.playButton.clicked.connect(self.server_host)
 
     # Code to log onto a server that has already been started
     def server_host(self):
@@ -173,9 +180,41 @@ class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
         # os.environ['PANDADIRECTORY'] =
         subprocess.Popen("C:/Panda3D-1.10.0/python/ppython.exe -m toontown.toonbase.ToontownStart", shell=False)
         self.close()
+    def linux_server_host(self):
+        os.chdir("../")
+        # Grabs the server text and IP to pass into panda
+        username = self.name.text()
+        IP_Address = self.IP.text()
 
-    # Code to start local host(DEFAULT OPTION)
-    def local_host(self):
+        # Sets up enviroment variables needed to launch the game
+        os.environ['input'] = '1'
+        os.environ['TTS_GAMESERVER'] = IP_Address
+        os.environ['TTS_PLAYCOOKIE'] = username
+
+        # os.environ['PANDADIRECTORY'] =
+        subprocess.Popen("ppython -m toontown.toonbase.ToontownStart", shell=False)
+        self.close()
+
+    # Code to start on linux
+    def linux_local_host(self):
+        os.chdir("../")
+
+        os.environ['DYLD_LIBRARY_PATH'] = '`pwd`/Libraries.bundle'
+        os.environ['DYLD_FRAMEWORK_PATH'] = "Frameworks"
+
+        username = self.name.text()
+        if not username:
+            QtWidgets.QMessageBox.about(self, "Name required", "Hey! \nYou need a username before we can start!\n")
+            return
+        os.environ['ttsUsername'] = username
+        os.environ['TTS_PLAYCOOKIE'] = username
+
+        os.environ['TTS_GAMESERVER'] = "127.0.0.1""
+
+        subprocess.Popen("ppython -m toontown.toonbase.ToontownStart")
+        self.close()
+    # Code to start local host on windows!
+    def win32_local_host(self):
         backendir = os.chdir("dev/backend/")
         username = self.name.text()
 

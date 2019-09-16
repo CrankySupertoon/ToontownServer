@@ -1,2 +1,0 @@
-set GAME_SERVER_IP_ADDRESS=207.246.65.85
-set STARTUP_CONFIGURATION_FILE=config\startup_config.xml
