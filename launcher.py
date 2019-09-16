@@ -4,7 +4,7 @@
 
 import os
 import subprocess
-import sys import platform
+from sys import platform
 import zipfile
 from PySide2 import QtWidgets, QtCore, QtGui
 import shutil
@@ -149,7 +149,7 @@ class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
         cpl.exec_()
 
     def combo_options(self, index):
-        platform = sys.platform()
+        
         if index == "Local":
             print("Local")
             self.option.setCurrentIndex(0)
@@ -213,7 +213,7 @@ class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
         os.environ['ttsUsername'] = username
         os.environ['TTS_PLAYCOOKIE'] = username
 
-        os.environ['TTS_GAMESERVER'] = "127.0.0.1""
+        os.environ['TTS_GAMESERVER'] = "127.0.0.1"
 
         subprocess.Popen("ppython -m toontown.toonbase.ToontownStart")
         self.close()
