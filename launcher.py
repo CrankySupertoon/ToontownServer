@@ -63,6 +63,7 @@ class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
         main_win.show()
         main_win.exec_()
         print("Now returning to main menu!")
+        # Returns to base directory so game can load
         os.chdir("../")
 
     # Opens resource folder 
@@ -119,7 +120,12 @@ class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
         for file_name in os.listdir(os.getcwd()):
             if not file_name.endswith(".mf"):
                 print(file_name)
-                shutil.move(file_name, "../resources")
+                #os.chdir("../resources/" + str(file_name))
+                print("Currently in: " + os.getcwd())
+                try:
+                    shutil.copyfile(file_name, "../resources/" + str(file_name))
+                except WindowsError as e:
+                    print("OMG: ", e)
 
         print("Success! Now launch the game with your new files")
         os.chdir("../")
@@ -158,6 +164,7 @@ class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
 
             self.IP.setText("127.0.0.1")
             self.IP.setReadOnly(True)
+
             # Checks if platform is linux or windows
             if platform == "linux" or platform == "linux2":
                 self.playButton.clicked.connect(self.linux_local_host)
@@ -181,7 +188,7 @@ class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
         os.environ['TTS_GAMESERVER'] = IP_Address
         os.environ['TTS_PLAYCOOKIE'] = username
 
-        # os.environ['PANDADIRECTORY'] =
+
         subprocess.Popen("C:/Panda3D-1.10.0/python/ppython.exe -m toontown.toonbase.ToontownStart", shell=False)
         self.close()
     def linux_server_host(self):
@@ -195,11 +202,10 @@ class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
         os.environ['TTS_GAMESERVER'] = IP_Address
         os.environ['TTS_PLAYCOOKIE'] = username
 
-        # os.environ['PANDADIRECTORY'] =
         subprocess.Popen("ppython -m toontown.toonbase.ToontownStart", shell=False)
         self.close()
 
-    # Code to start on linux
+    # Code to start local on linux
     def linux_local_host(self):
         os.chdir("../")
 
