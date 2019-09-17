@@ -123,7 +123,7 @@ class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
                 #os.chdir("../resources/" + str(file_name))
                 print("Currently in: " + os.getcwd())
                 try:
-                    shutil.copyfile(file_name, "../resources/" + str(file_name))
+                    shutil.copyfile(file_name, "../resources/")
                 except WindowsError as e:
                     print("OMG: ", e)
 
@@ -153,6 +153,7 @@ class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
         cpl = Content_Pack_Launcher()
         cpl.show()
         cpl.exec_()
+        cpl.setWindowModality(QtCore.Qt.WindowModal)
 
     def combo_options(self, index):
         
@@ -179,6 +180,7 @@ class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
 
     # Code to log onto a server that has already been started
     def server_host(self):
+        PPython, randomtext = QtWidgets.QFileDialog.getOpenFileName(self, self.tr("Open ppython file"), self.tr("C:"), self.tr("PPython (*.exe)"))
         # Grabs the server text and IP to pass into panda
         username = self.name.text()
         IP_Address = self.IP.text()
@@ -189,7 +191,7 @@ class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
         os.environ['TTS_PLAYCOOKIE'] = username
 
 
-        subprocess.Popen("C:/Panda3D-1.10.0/python/ppython.exe -m toontown.toonbase.ToontownStart", shell=False)
+        subprocess.Popen(PPython + " -m toontown.toonbase.ToontownStart", shell=False)
         self.close()
     def linux_server_host(self):
         os.chdir("../")
@@ -225,9 +227,9 @@ class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
         self.close()
     # Code to start local host on windows!
     def win32_local_host(self):
+        PPython, randomtext = QtWidgets.QFileDialog.getOpenFileName(self, self.tr("Open ppython file"), self.tr("C:"), self.tr("PPython (*.exe)"))
         backendir = os.chdir("dev/backend/")
         username = self.name.text()
-
         # Check to prevent a blank user
         if not username:
             QtWidgets.QMessageBox.about(self, "Name required", "Hey! \nYou need a username before we can start!\n")
@@ -250,7 +252,7 @@ class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
         os.environ['TTS_GAMESERVER'] = "127.0.0.1"
 
         os.environ['TTS_PLAYCOOKIE'] = username
-        subprocess.Popen("C:\Panda3D-1.10.0\python\ppython.exe -m toontown.toonbase.ToontownStart", shell=False)
+        subprocess.Popen(PPython + " -m toontown.toonbase.ToontownStart", shell=False)
         self.close()
 
 
