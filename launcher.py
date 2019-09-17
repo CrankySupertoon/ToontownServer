@@ -171,12 +171,14 @@ class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
                 self.playButton.clicked.connect(self.linux_local_host)
             if platform == "win32":
                 self.playButton.clicked.connect(self.win32_local_host)
-        else:
+        elif index == "Server":
             print("Server")
             self.option.setCurrentIndex(1)
             self.IP.setText("")
             print("Username is: " + self.name.text())
             self.playButton.clicked.connect(self.server_host)
+        else:
+            print("Uh oh, user tried to run without an option...")
 
     # Code to log onto a server that has already been started
     def server_host(self):
@@ -227,7 +229,10 @@ class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
         self.close()
     # Code to start local host on windows!
     def win32_local_host(self):
-        PPython, randomtext = QtWidgets.QFileDialog.getOpenFileName(self, self.tr("Open ppython file"), self.tr("C:"), self.tr("PPython (*.exe)"))
+        PPython, randomtext = QtWidgets.QFileDialog.getOpenFileName(self, self.tr("Open ppython file"), self.tr("C:\\"), self.tr("PPython (*.exe)"))
+        if not open(PPython):
+            print("Uh oh! stop this now!")
+
         backendir = os.chdir("dev/backend/")
         username = self.name.text()
         # Check to prevent a blank user
