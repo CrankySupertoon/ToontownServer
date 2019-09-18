@@ -34,11 +34,10 @@ class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
             os.chdir(path)
             
 
-        # self.load.clicked.connect(self.open_resource_folder)
+        self.load.clicked.connect(self.open_resource_folder)
         self.back.clicked.connect(self.return_main)
         self.load_cp.clicked.connect(self.content_pack_opener)
-
-        if open("default.mf", 'w'):
+        '''if open("default.mf", 'w'):
             try:
                 if os.path.isdir(resources_dir):
                     print("Currently in resources, no need to change!")
@@ -54,7 +53,7 @@ class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
                         print("Now done with directory change")
                     
             except ValueError:
-                print("Wtf man...why am I doing this twice?")
+                print("Wtf man...why am I doing this twice?")'''
 
     # Is the back button, returns to main menu       
     def return_main(self):
@@ -68,13 +67,13 @@ class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
 
     # Opens resource folder 
     def open_resource_folder(self, path):
-        if os.path.isdir("content_packs"):
-            os.chdir("content_packs")
+        print(os.getcwd())
 
-            if os.path.isdir("content_packs"):
-                os.system(f'start {os.path.realpath(os.getcwd())}')
-                os.chdir("../")
+        if platform == "win32":
+            print("hi, I'm on windows!")
+            subprocess.Popen(r'explorer /select, ' + os.getcwd(), shell = True)
 
+            # Allows us to grab the entire folder and its contents
             '''def retrieve_file(dir_name):
                 # setup file paths variable
                 filePaths = []
@@ -103,8 +102,9 @@ class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
     # Opens the contents of the zip file and looks for mf file
     # replaces the contents of the resource folder with the resources provided with the .mf
     def content_pack_opener(self):
+        print(os.getcwd())
         file, filename = QtWidgets.QFileDialog.getOpenFileName(self, self.tr("Open mf"), self.tr("content_packs"), self.tr("MF files (*.mf)"))
-        os.chdir("content_packs")
+        
 
         # Allows us to break the path into multiple segments
         p = Path(file)
