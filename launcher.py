@@ -112,23 +112,23 @@ class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
         # Decompresses the .mf files
         print("Now unzipping .mf file...please hold")
         content_pack_unzip = subprocess.Popen("multify.exe -x -f " + p.name, shell=False)
+        # Waits till process is done
         content_pack_unzip.wait()
 
         print("Okay, I'm done unzipping all the files:")
         print("Now moving files to resources!")
-
-        for file_name in os.listdir(os.getcwd()):
-            if not file_name.endswith(".mf"):
-                print(file_name)
-                #os.chdir("../resources/" + str(file_name))
-                print("Currently in: " + os.getcwd())
-                try:
-                    shutil.copyfile(file_name, "../resources/")
-                except WindowsError as e:
-                    print("OMG: ", e)
-
-        print("Success! Now launch the game with your new files")
+        print(os.getcwd())
+        parent = os.getcwd()
+        for root, dirs, files in os.walk('./content_packs'):
+            for fileName in files:
+                shutil.copy(os.path.join(root, fileName), os.path.join(parent, "resources", fileName))
+                    
+                    
+        
         os.chdir("../")
+        print(os.getcwd())
+        print("Success! Now launch the game with your new files")
+        
             
         
 # Initates the basic UI elements
@@ -147,6 +147,7 @@ class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
 
         self.cp.clicked.connect(self.content_pack_window)
         print("Directory is currently: " + os.getcwd())
+        print((0 - 7) % 10)
     # Opens the content pack window
     def content_pack_window(self):
         self.hide()
