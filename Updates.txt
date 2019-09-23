@@ -24,8 +24,16 @@ September 12th, 2019
 - Currently accomplished:
     - User can now access a content pack menu
     - Users can now access the default directory for resources
-    - Will autogenerate a folder if it's not there
-    - Will zip the contents of default contents and let user select it
 
 - Left to do:
     - Finish the content pack menu
+
+September 22nd, 2019
+- Currently done:
+    - User can now use their own content pack of their choice, file must be a .mf
+    - Content pack launcher is fully functional
+    
+- Left to do:
+    - Finish zipping up the default resources, will always have a copy in content_packs folder
+    - Release excutables for the OSs, first major release
+    - Create graphics for the UI
