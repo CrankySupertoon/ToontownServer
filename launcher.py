@@ -108,7 +108,8 @@ class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
 
         # Allows us to break the path into multiple segments
         p = Path(file)
-
+        Dir_Content_Packs= "./content_packs"
+        Dir_Resources = "./resources"
         # Decompresses the .mf files
         print("Now unzipping .mf file...please hold")
         content_pack_unzip = subprocess.Popen("multify.exe -x -f " + p.name, shell=False)
@@ -117,16 +118,31 @@ class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
 
         print("Okay, I'm done unzipping all the files:")
         print("Now moving files to resources!")
-        print(os.getcwd())
-        parent = os.getcwd()
-        for root, dirs, files in os.walk('./content_packs'):
-            for fileName in files:
-                shutil.copy(os.path.join(root, fileName), os.path.join(parent, "resources", fileName))
-                    
-                    
-        
+        # Search through all folders and files
         os.chdir("../")
+        for root, folders, files in os.walk(Dir_Content_Packs):
+
+            # Look at each file
+            for contentFile in files:
+
+                # Save the path to the file from the ./content_packs/ folder
+                contentRoot = root
+
+                # Replace the ./content_packs/ path with the ./resources/ path
+                resourceRoot = root.replace(Dir_Content_Packs, Dir_Resources)
+                resourceFilePath = os.path.join(resourceRoot, contentFile)
+
+                # Check whether the directory ./resources/ has that file
+                if os.path.exists(resourceFilePath):
+
+                # If so, replace the file inside ./resources/ with the one from ./content_packs/
+                    contentFilePath  = os.path.join(contentRoot, contentFile)
+                    shutil.copyfile(contentFilePath, resourceFilePath)
+                
+        
+        
         print(os.getcwd())
+        os.chdir("../")
         print("Success! Now launch the game with your new files")
         
             
