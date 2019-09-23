@@ -5,3 +5,7 @@ Features:
 - Saving multiple IP addresses to favorites
 - Available on Mac, Windows, and Linux
 - Very modular
+
+Credits:
+- Alex : Debugging and feedback
+- Kevin : Debugging and feedback
