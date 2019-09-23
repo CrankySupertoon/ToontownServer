@@ -2,14 +2,14 @@
 # Created for the use of the base game Toontown Stride
 # Can be modified for other servers
 
-
 import os
 import subprocess
-import sys
+from sys import platform
 import zipfile
-from PySide2 import QtWidgets
+from PySide2 import QtWidgets, QtCore, QtGui
+import shutil
+from pathlib import Path
 from ui import main, CPL
-
 
 # Content pack launcher
 # Lets the user select content packs and replace current resources with them
@@ -20,11 +20,13 @@ class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
         self.setupUi(self)
         path = "content_packs"
         resources_dir = "resources"
+        default_name = "default"
+
         # Checks if content pack folder is made, otherwise make it
         if os.path.isdir(path):
             print("this exists, doing nothing!\n")
             os.chdir(path)
-            print("Current dir is : %s", os.getcwd())
+            print("Current dir is : ", os.getcwd())
             self.load.clicked.connect(self.open_resource_folder)
         else:
             print("this does not exist, now making!")
@@ -32,55 +34,47 @@ class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
             os.chdir(path)
             
 
-        # self.load.clicked.connect(self.open_resource_folder)
+        self.load.clicked.connect(self.open_resource_folder)
         self.back.clicked.connect(self.return_main)
-
-        self.name.setReadOnly(True)
-        self.author.setReadOnly(True)
-        #self.load2.clicked.connect(self.content_pack_opener)
-
-        if open("default.mf", 'w'):
+        self.load_cp.clicked.connect(self.content_pack_opener)
+        '''if open("default.mf", 'w'):
             try:
                 if os.path.isdir(resources_dir):
                     print("Currently in resources, no need to change!")
                 else:
                     print("Not present in resources... changing...")
                     os.chdir("../")
-                    print("Current dir is : %s", os.getcwd())
+                    print("Current dir is : ", os.getcwd())
                     if os.path.isdir(resources_dir):
                         print("I'm here to prevent an error when there's a folder error\n")
                     else:
                         resources_path = os.chdir("resources")
-                        print("Current dir is : %s", os.getcwd())
+                        print("Current dir is : ", os.getcwd())
                         print("Now done with directory change")
                     
             except ValueError:
-                print("Wtf man...why am I doing this twice?")
-            
+                print("Wtf man...why am I doing this twice?")'''
 
-
-            #folder_name = os.getcwd()
-            #retrieve_file(dir_name)
-            #zipper(dir_name)
-
-
-            # Selects all the files and compresses
-            
-
+    # Is the back button, returns to main menu       
     def return_main(self):
         self.hide()
         main_win = main_window()
         main_win.show()
         main_win.exec_()
+        print("Now returning to main menu!")
+        # Returns to base directory so game can load
+        os.chdir("../")
 
-            # Opens resource folder 
-
+    # Opens resource folder 
     def open_resource_folder(self, path):
-        if os.path.isdir(path):
-            print("I'm in content packs!")
-            os.system(f'start {os.path.realpath(os.getcwd())}')
+        print(os.getcwd())
 
-            def retrieve_file(dir_name):
+        if platform == "win32":
+            print("hi, I'm on windows!")
+            subprocess.Popen(r'explorer /select, ' + os.getcwd(), shell = True)
+
+            # Allows us to grab the entire folder and its contents
+            '''def retrieve_file(dir_name):
                 # setup file paths variable
                 filePaths = []
 
@@ -94,24 +88,65 @@ class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
             # return all paths
             return filePaths
 
-        def zipper(dir_name):
-            # writing files to a zipfile
-            zip_file = zipfile.ZipFile(dir_name + '.zip', 'w')
-            with zip_file:
-                # writing each file one by one
-                for file in filePaths:
-                    zip_file.write(file)
+    def zipper(dir_name):
+        # writing files to a zipfile
+        zip_file = zipfile.ZipFile(dir_name + '.zip', 'w')
+        with zip_file:
+            # writing each file one by one
+            for file in filePaths:
+                zip_file.write(file)
 
-        print(dir_name + '.zip file is created successfully!')
+        print(dir_name + '.zip file is created successfully!')'''
 
+        
+    # Opens the contents of the zip file and looks for mf file
+    # replaces the contents of the resource folder with the resources provided with the .mf
+    def content_pack_opener(self):
+        print(os.getcwd())
+        file, filename = QtWidgets.QFileDialog.getOpenFileName(self, self.tr("Open mf"), self.tr("content_packs"), self.tr("MF files (*.mf)"))
+        
 
-# Opens the contents of the zip file and looks for mf file
-# replaces the contents of the resource folder with the resources provided with the .mf
-def content_pack_opener(self):
-    file = QFileDialog.getOpenFileName(self, tr("Open mf"), path, tr("MF files (*.mf)"))
+        # Allows us to break the path into multiple segments
+        p = Path(file)
+        Dir_Content_Packs= "./content_packs"
+        Dir_Resources = "./resources"
+        # Decompresses the .mf files
+        print("Now unzipping .mf file...please hold")
+        content_pack_unzip = subprocess.Popen("multify.exe -x -f " + p.name, shell=False)
+        # Waits till process is done
+        content_pack_unzip.wait()
 
+        print("Okay, I'm done unzipping all the files:")
+        print("Now moving files to resources!")
+        # Search through all folders and files
+        os.chdir("../")
+        for root, folders, files in os.walk(Dir_Content_Packs):
 
+            # Look at each file
+            for contentFile in files:
 
+                # Save the path to the file from the ./content_packs/ folder
+                contentRoot = root
+
+                # Replace the ./content_packs/ path with the ./resources/ path
+                resourceRoot = root.replace(Dir_Content_Packs, Dir_Resources)
+                resourceFilePath = os.path.join(resourceRoot, contentFile)
+
+                # Check whether the directory ./resources/ has that file
+                if os.path.exists(resourceFilePath):
+
+                # If so, replace the file inside ./resources/ with the one from ./content_packs/
+                    contentFilePath  = os.path.join(contentRoot, contentFile)
+                    shutil.copyfile(contentFilePath, resourceFilePath)
+                
+        
+        
+        print(os.getcwd())
+        os.chdir("../")
+        print("Success! Now launch the game with your new files")
+        
+            
+        
 # Initates the basic UI elements
 class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
 
@@ -127,31 +162,44 @@ class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
             QtWidgets.QMessageBox.about(self, "IP address", "Hey! \nYou need a name in order to launch the game\n")
 
         self.cp.clicked.connect(self.content_pack_window)
-
+        print("Directory is currently: " + os.getcwd())
+        print((0 - 7) % 10)
     # Opens the content pack window
     def content_pack_window(self):
         self.hide()
         cpl = Content_Pack_Launcher()
         cpl.show()
         cpl.exec_()
+        cpl.setWindowModality(QtCore.Qt.WindowModal)
 
     def combo_options(self, index):
+        
         if index == "Local":
             print("Local")
             self.option.setCurrentIndex(0)
+
             print("Username is: " + self.name.text())
+
             self.IP.setText("127.0.0.1")
             self.IP.setReadOnly(True)
-            self.playButton.clicked.connect(self.local_host)
-        else:
+
+            # Checks if platform is linux or windows
+            if platform == "linux" or platform == "linux2":
+                self.playButton.clicked.connect(self.linux_local_host)
+            if platform == "win32":
+                self.playButton.clicked.connect(self.win32_local_host)
+        elif index == "Server":
             print("Server")
             self.option.setCurrentIndex(1)
             self.IP.setText("")
             print("Username is: " + self.name.text())
-            self.playButton.clicked.connect(self.local_host)
+            self.playButton.clicked.connect(self.server_host)
+        else:
+            print("Uh oh, user tried to run without an option...")
 
     # Code to log onto a server that has already been started
     def server_host(self):
+        PPython, randomtext = QtWidgets.QFileDialog.getOpenFileName(self, self.tr("Open ppython file"), self.tr("C:"), self.tr("PPython (*.exe)"))
         # Grabs the server text and IP to pass into panda
         username = self.name.text()
         IP_Address = self.IP.text()
@@ -161,15 +209,49 @@ class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
         os.environ['TTS_GAMESERVER'] = IP_Address
         os.environ['TTS_PLAYCOOKIE'] = username
 
-        # os.environ['PANDADIRECTORY'] =
-        subprocess.Popen("C:/Panda3D-1.10.0/python/ppython.exe -m toontown.toonbase.ToontownStart", shell=False)
+
+        subprocess.Popen(PPython + " -m toontown.toonbase.ToontownStart", shell=False)
+        self.close()
+    def linux_server_host(self):
+        os.chdir("../")
+        # Grabs the server text and IP to pass into panda
+        username = self.name.text()
+        IP_Address = self.IP.text()
+
+        # Sets up enviroment variables needed to launch the game
+        os.environ['input'] = '1'
+        os.environ['TTS_GAMESERVER'] = IP_Address
+        os.environ['TTS_PLAYCOOKIE'] = username
+
+        subprocess.Popen("ppython -m toontown.toonbase.ToontownStart", shell=False)
         self.close()
 
-    # Code to start local host(DEFAULT OPTION)
-    def local_host(self):
+    # Code to start local on linux
+    def linux_local_host(self):
+        os.chdir("../")
+
+        os.environ['DYLD_LIBRARY_PATH'] = '`pwd`/Libraries.bundle'
+        os.environ['DYLD_FRAMEWORK_PATH'] = "Frameworks"
+
+        username = self.name.text()
+        if not username:
+            QtWidgets.QMessageBox.about(self, "Name required", "Hey! \nYou need a username before we can start!\n")
+            return
+        os.environ['ttsUsername'] = username
+        os.environ['TTS_PLAYCOOKIE'] = username
+
+        os.environ['TTS_GAMESERVER'] = "127.0.0.1"
+
+        subprocess.Popen("ppython -m toontown.toonbase.ToontownStart")
+        self.close()
+    # Code to start local host on windows!
+    def win32_local_host(self):
+        PPython, randomtext = QtWidgets.QFileDialog.getOpenFileName(self, self.tr("Open ppython file"), self.tr("C:\\"), self.tr("PPython (*.exe)"))
+        if not open(PPython):
+            print("Uh oh! stop this now!")
+
         backendir = os.chdir("dev/backend/")
         username = self.name.text()
-
         # Check to prevent a blank user
         if not username:
             QtWidgets.QMessageBox.about(self, "Name required", "Hey! \nYou need a username before we can start!\n")
@@ -192,7 +274,7 @@ class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
         os.environ['TTS_GAMESERVER'] = "127.0.0.1"
 
         os.environ['TTS_PLAYCOOKIE'] = username
-        subprocess.Popen("C:\Panda3D-1.10.0\python\ppython.exe -m toontown.toonbase.ToontownStart", shell=False)
+        subprocess.Popen(PPython + " -m toontown.toonbase.ToontownStart", shell=False)
         self.close()
 
 
