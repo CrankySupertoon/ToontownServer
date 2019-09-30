@@ -605,3 +605,5 @@
 {"_time": "2019-09-30 19:46:22Eastern Daylight Time", "type": "avatarExit", "sender": "AIR:401000000", "_1": 401003463, "_2": ""}
 {"_time": "2019-09-30 19:46:22Eastern Daylight Time", "type": "avatarExit", "sender": "AIR:401000000", "_1": 401003634, "_2": ""}
 {"_time": "2019-09-30 19:46:50Eastern Daylight Time", "type": "building-cog", "sender": "AIR:401000000", "_1": 401003591, "_2": "9300|9|l|5"}
+{"_time": "2019-09-30 19:46:50Eastern Daylight Time", "type": "avatarExit", "sender": "AIR:401000000", "_1": 401003592, "_2": ""}
+{"_time": "2019-09-30 19:47:01Eastern Daylight Time", "type": "avatarExit", "sender": "AIR:401000000", "_1": 401003658, "_2": ""}
