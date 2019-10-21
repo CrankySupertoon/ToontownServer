@@ -154,16 +154,13 @@ class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
         super(main_window, self).__init__()
         self.setupUi(self)
 
-        # Sets the combobox item value to a blank item
-        self.option.setCurrentIndex(-1)
-        # Connects the signal for both
-        self.option.currentTextChanged.connect(self.combo_options)
+        
         if not self.name.text:
             QtWidgets.QMessageBox.about(self, "IP address", "Hey! \nYou need a name in order to launch the game\n")
 
-        self.cp.clicked.connect(self.content_pack_window)
+        
         print("Directory is currently: " + os.getcwd())
-        print((0 - 7) % 10)
+       
     # Opens the content pack window
     def content_pack_window(self):
         self.hide()
