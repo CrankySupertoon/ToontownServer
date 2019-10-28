@@ -9,7 +9,12 @@ import zipfile
 from PySide2 import QtWidgets, QtCore, QtGui
 import shutil
 from pathlib import Path
-from ui import main, CPL
+from ui import main, CPL, options_menu
+
+class Options_Menu(options_menu.Ui_Options_Menu, QtWidgets.QMainWindow):
+    def __init__(self, parent=None):
+        super(Options_Menu, self).__init__(parent)
+        self.setupUi(self)
 
 # Content pack launcher
 # Lets the user select content packs and replace current resources with them
@@ -158,13 +163,13 @@ class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
         if not self.name.text:
             QtWidgets.QMessageBox.about(self, "IP address", "Hey! \nYou need a name in order to launch the game\n")
 
-        
+        self.options_menu.clicked.connect(self.content_pack_window)
         print("Directory is currently: " + os.getcwd())
        
     # Opens the content pack window
     def content_pack_window(self):
         self.hide()
-        cpl = Content_Pack_Launcher()
+        cpl = Options_Menu()
         cpl.show()
         cpl.exec_()
         cpl.setWindowModality(QtCore.Qt.WindowModal)
