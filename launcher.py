@@ -10,11 +10,47 @@ from PySide2 import QtWidgets, QtCore, QtGui
 import shutil
 from pathlib import Path
 from ui import main, CPL, options_menu
+import json
 
 class Options_Menu(options_menu.Ui_Options_Menu, QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         super(Options_Menu, self).__init__(parent)
         self.setupUi(self)
+        self.Content_Pack_Explorer()
+        self.resource_Button.clicked.connect(self.open_resource_folder)
+        self.Hot_Key_Selector()
+
+    # Opens up the content pack folder
+    def open_resource_folder(self):
+        if(os.getcwd() == "content_packs"):
+            print("In this directory, no need to change")
+        else:
+            print("Not in the directory, switching now...")
+            print(os.getcwd())
+            os.chdir("content_packs")
+            print(os.getcwd())
+
+        if platform == "win32":
+            print("hi, I'm on windows!")
+            subprocess.Popen(r'explorer /select, ' + os.getcwd(), shell = True)
+
+    # Loads up the defined hot keys located 
+    def Hot_Key_Selector(self):
+        with open('settings/controls.json', 'r') as f:
+            controls = json.load(f)
+        
+        for c in controls:
+            print(c['walkup'])
+    
+    # Loads up the content pack folder and lets the user select the content pack
+    # Uses a treeview to show the actual contents of the folder itself
+    def Content_Pack_Explorer(self):
+        path ="content_packs"
+        display = QtWidgets.QFileSystemModel()
+        display.setRootPath((QtCore.QDir.rootPath()))
+        self.treeView.setModel(display)
+        self.treeView.setRootIndex(display.index(path))
+        self.treeView.setSortingEnabled(True)
 
 # Content pack launcher
 # Lets the user select content packs and replace current resources with them

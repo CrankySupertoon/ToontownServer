@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file 'options_menu.ui',
 # licensing of 'options_menu.ui' applies.
 #
-# Created: Mon Oct 21 21:21:54 2019
+# Created: Fri Nov  1 17:35:00 2019
 #      by: pyside2-uic  running on PySide2 5.13.0
 #
 # WARNING! All changes made in this file will be lost!
@@ -263,6 +263,7 @@ class Ui_Options_Menu(object):
         self.label_31.setObjectName("label_31")
         self.DisplayMode = QtWidgets.QComboBox(self.tab_4)
         self.DisplayMode.setGeometry(QtCore.QRect(100, 120, 161, 22))
+        self.DisplayMode.setToolTipDuration(4)
         self.DisplayMode.setObjectName("DisplayMode")
         self.DisplayMode.addItem("")
         self.DisplayMode.addItem("")
@@ -359,9 +360,9 @@ class Ui_Options_Menu(object):
         self.tabWidget.addTab(self.tab_4, "")
         self.tab_2 = QtWidgets.QWidget()
         self.tab_2.setObjectName("tab_2")
-        self.pushButton = QtWidgets.QPushButton(self.tab_2)
-        self.pushButton.setGeometry(QtCore.QRect(290, 180, 181, 23))
-        self.pushButton.setObjectName("pushButton")
+        self.resource_Button = QtWidgets.QPushButton(self.tab_2)
+        self.resource_Button.setGeometry(QtCore.QRect(290, 180, 181, 23))
+        self.resource_Button.setObjectName("resource_Button")
         self.treeView = QtWidgets.QTreeView(self.tab_2)
         self.treeView.setGeometry(QtCore.QRect(0, 0, 801, 161))
         self.treeView.setObjectName("treeView")
@@ -369,27 +370,9 @@ class Ui_Options_Menu(object):
         self.returnButton_3.setGeometry(QtCore.QRect(0, 550, 75, 23))
         self.returnButton_3.setObjectName("returnButton_3")
         self.tabWidget.addTab(self.tab_2, "")
-        self.tab = QtWidgets.QWidget()
-        self.tab.setObjectName("tab")
-        self.returnButton_2 = QtWidgets.QPushButton(self.tab)
-        self.returnButton_2.setGeometry(QtCore.QRect(0, 550, 75, 23))
-        self.returnButton_2.setObjectName("returnButton_2")
-        self.textBrowser = QtWidgets.QTextBrowser(self.tab)
-        self.textBrowser.setGeometry(QtCore.QRect(0, 0, 801, 551))
-        self.textBrowser.setObjectName("textBrowser")
-        self.tabWidget.addTab(self.tab, "")
-        self.tab_3 = QtWidgets.QWidget()
-        self.tab_3.setObjectName("tab_3")
-        self.returnButton = QtWidgets.QPushButton(self.tab_3)
-        self.returnButton.setGeometry(QtCore.QRect(0, 550, 75, 23))
-        self.returnButton.setObjectName("returnButton")
-        self.textBrowser_2 = QtWidgets.QTextBrowser(self.tab_3)
-        self.textBrowser_2.setGeometry(QtCore.QRect(0, 0, 801, 111))
-        self.textBrowser_2.setObjectName("textBrowser_2")
-        self.tabWidget.addTab(self.tab_3, "")
 
         self.retranslateUi(Options_Menu)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(Options_Menu)
 
     def retranslateUi(self, Options_Menu):
@@ -464,30 +447,7 @@ class Ui_Options_Menu(object):
         self.label_40.setText(QtWidgets.QApplication.translate("Options_Menu", "Disable Accessories", None, -1))
         self.saveChangesButton.setText(QtWidgets.QApplication.translate("Options_Menu", "Save Changes", None, -1))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), QtWidgets.QApplication.translate("Options_Menu", "Game settings", None, -1))
-        self.pushButton.setText(QtWidgets.QApplication.translate("Options_Menu", "Resource Folder", None, -1))
+        self.resource_Button.setText(QtWidgets.QApplication.translate("Options_Menu", "Resource Folder", None, -1))
         self.returnButton_3.setText(QtWidgets.QApplication.translate("Options_Menu", "Return", None, -1))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QtWidgets.QApplication.translate("Options_Menu", "Content Packs", None, -1))
-        self.returnButton_2.setText(QtWidgets.QApplication.translate("Options_Menu", "Return", None, -1))
-        self.textBrowser.setHtml(QtWidgets.QApplication.translate("Options_Menu", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:20pt;\">Credits to the following who made this possible:</span></p>\n"
-"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:20pt;\"><br /></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:20pt;\">Abrahan Nevarez - Developer, and designer.</span></p>\n"
-"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:20pt;\"><br /></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:20pt;\">Kevin - Bug testing</span></p>\n"
-"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:20pt;\"><br /></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:20pt;\">Alex - Bug testing </span></p></body></html>", None, -1))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QtWidgets.QApplication.translate("Options_Menu", "Credits", None, -1))
-        self.returnButton.setText(QtWidgets.QApplication.translate("Options_Menu", "Return", None, -1))
-        self.textBrowser_2.setHtml(QtWidgets.QApplication.translate("Options_Menu", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:20pt;\">A launcher for the game Toontown Stride, created in August 2019. The launcher can be distributed, and modified. </span></p>\n"
-"<p align=\"center\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:20pt;\">Written in Pyside2 and Python.</span></p>\n"
-"<p align=\"center\" style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:20pt;\"><br /></p>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:20pt;\"><br /></p></body></html>", None, -1))
-        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), QtWidgets.QApplication.translate("Options_Menu", "About", None, -1))
 
