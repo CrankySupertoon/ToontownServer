@@ -16,12 +16,14 @@ class Options_Menu(options_menu.Ui_Options_Menu, QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         super(Options_Menu, self).__init__(parent)
         self.setupUi(self)
-        self.Content_Pack_Explorer()
-        self.resource_Button.clicked.connect(self.open_resource_folder)
-        self.Hot_Key_Selector()
+        # Sets up what will be run whenever we load the page
+        self.contentPackExplorer()
+        self.resource_Button.clicked.connect(self.openResourceFolder)
+        self.hotKeySelector()
+        self.graphicalSettings()
 
     # Opens up the content pack folder
-    def open_resource_folder(self):
+    def openResourceFolder(self):
         if(os.getcwd() == "content_packs"):
             print("In this directory, no need to change")
         else:
@@ -33,113 +35,61 @@ class Options_Menu(options_menu.Ui_Options_Menu, QtWidgets.QMainWindow):
         if platform == "win32":
             print("hi, I'm on windows!")
             subprocess.Popen(r'explorer /select, ' + os.getcwd(), shell = True)
+    
+    # Loads up the graphical settings
+    def graphicalSettings(self):
+        with open('settings/game_settings.json') as loop:
+            data = json.load(loop)
 
-    # Loads up the defined hot keys located 
-    def Hot_Key_Selector(self):
-        with open('settings/controls.json', 'r') as f:
-            controls = json.load(f)
-        
-        for c in controls:
-            print(c['walkup'])
+    # Loads up the defined hot keys located in settings/controls.json
+    def hotKeySelector(self):
+        with open('settings/controls.json') as loop:
+            data = json.load(loop)
+
+        # Sets the controls from the controls json file
+        self.walkUpButton.setText(data["Controls"][0]['walk-up'])
+        self.walkLeftButton.setText(data["Controls"][1]['walk-left'])
+        self.walkRightButton.setText(data["Controls"][2]['walk-right'])
+        self.walkDownButton.setText(data["Controls"][3]['walk-down'])
+
+        self.jumpButton.setText(data["Controls"][4]['jump'])
+
+        self.takeScreenButton.setText(data["Controls"][5]['screenshot'])
+
+        self.walkButton.setText(data["Controls"][6]['walk'])
+
+        self.lookUpButton.setText(data["Controls"][7]['look-up'])
+        self.lookDownButton.setText(data["Controls"][8]['look-down'])
+
+        self.viewGagsButtons.setText(data["Controls"][9]['showGags'])
+
+        self.viewToontasksButton.setText(data["Controls"][10]['showTasks'])
+
+        self.openBookButton.setText(data["Controls"][11]['stickerBook'])
+
+        self.showAndHideButton.setText(data["Controls"][12]['toggleGUI'])
+
+        self.viewMapButton.setText(data["Controls"][13]['showMap'])
+
+        self.openFriendsButton.setText(data["Controls"][14]['friendsList'])
+
+        self.changeCameraButton.setText(data["Controls"][15]['cameraNext'])
+
+        self.PreviousCameraButton.setText(data["Controls"][16]['cameraPrev'])
+
     
     # Loads up the content pack folder and lets the user select the content pack
     # Uses a treeview to show the actual contents of the folder itself
-    def Content_Pack_Explorer(self):
+    def contentPackExplorer(self):
         path ="content_packs"
         display = QtWidgets.QFileSystemModel()
+
         display.setRootPath((QtCore.QDir.rootPath()))
+
         self.treeView.setModel(display)
         self.treeView.setRootIndex(display.index(path))
         self.treeView.setSortingEnabled(True)
 
-# Content pack launcher
-# Lets the user select content packs and replace current resources with them
-# Accepts .mf only
-class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
-    def __init__(self, parent=None):
-        super(Content_Pack_Launcher, self).__init__(parent)
-        self.setupUi(self)
-        path = "content_packs"
-        resources_dir = "resources"
-        default_name = "default"
-
-        # Checks if content pack folder is made, otherwise make it
-        if os.path.isdir(path):
-            print("this exists, doing nothing!\n")
-            os.chdir(path)
-            print("Current dir is : ", os.getcwd())
-            self.load.clicked.connect(self.open_resource_folder)
-        else:
-            print("this does not exist, now making!")
-            os.makedirs(path)
-            os.chdir(path)
-            
-
-        self.load.clicked.connect(self.open_resource_folder)
-        self.back.clicked.connect(self.return_main)
-        self.load_cp.clicked.connect(self.content_pack_opener)
-        '''if open("default.mf", 'w'):
-            try:
-                if os.path.isdir(resources_dir):
-                    print("Currently in resources, no need to change!")
-                else:
-                    print("Not present in resources... changing...")
-                    os.chdir("../")
-                    print("Current dir is : ", os.getcwd())
-                    if os.path.isdir(resources_dir):
-                        print("I'm here to prevent an error when there's a folder error\n")
-                    else:
-                        resources_path = os.chdir("resources")
-                        print("Current dir is : ", os.getcwd())
-                        print("Now done with directory change")
-                    
-            except ValueError:
-                print("Wtf man...why am I doing this twice?")'''
-
-    # Is the back button, returns to main menu       
-    def return_main(self):
-        self.hide()
-        main_win = main_window()
-        main_win.show()
-        main_win.exec_()
-        print("Now returning to main menu!")
-        # Returns to base directory so game can load
-        os.chdir("../")
-
-    # Opens resource folder 
-    def open_resource_folder(self, path):
-        print(os.getcwd())
-
-        if platform == "win32":
-            print("hi, I'm on windows!")
-            subprocess.Popen(r'explorer /select, ' + os.getcwd(), shell = True)
-
-            # Allows us to grab the entire folder and its contents
-            '''def retrieve_file(dir_name):
-                # setup file paths variable
-                filePaths = []
-
-                # Read all directory, subdirectories and file lists
-                for root, directories, files in os.walk(dir_name):
-                    for filename in files:
-                        # Create the full filepath by using os module.
-                        filePath = os.path.join(root, filename)
-                        filePaths.append(filePath)
-
-            # return all paths
-            return filePaths
-
-    def zipper(dir_name):
-        # writing files to a zipfile
-        zip_file = zipfile.ZipFile(dir_name + '.zip', 'w')
-        with zip_file:
-            # writing each file one by one
-            for file in filePaths:
-                zip_file.write(file)
-
-        print(dir_name + '.zip file is created successfully!')'''
-
-        
     # Opens the contents of the zip file and looks for mf file
     # replaces the contents of the resource folder with the resources provided with the .mf
     def content_pack_opener(self):
@@ -151,9 +101,11 @@ class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
         p = Path(file)
         Dir_Content_Packs= "./content_packs"
         Dir_Resources = "./resources"
+
         # Decompresses the .mf files
         print("Now unzipping .mf file...please hold")
         content_pack_unzip = subprocess.Popen("multify.exe -x -f " + p.name, shell=False)
+        
         # Waits till process is done
         content_pack_unzip.wait()
 
@@ -180,13 +132,10 @@ class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
                     contentFilePath  = os.path.join(contentRoot, contentFile)
                     shutil.copyfile(contentFilePath, resourceFilePath)
                 
-        
-        
         print(os.getcwd())
         os.chdir("../")
         print("Success! Now launch the game with your new files")
-        
-            
+
         
 # Initates the basic UI elements
 class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
@@ -226,6 +175,7 @@ class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
                 self.playButton.clicked.connect(self.linux_local_host)
             if platform == "win32":
                 self.playButton.clicked.connect(self.win32_local_host)
+
         elif index == "Server":
             print("Server")
             self.option.setCurrentIndex(1)
@@ -246,7 +196,6 @@ class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
         os.environ['input'] = '1'
         os.environ['TTS_GAMESERVER'] = IP_Address
         os.environ['TTS_PLAYCOOKIE'] = username
-
 
         subprocess.Popen(PPython + " -m toontown.toonbase.ToontownStart", shell=False)
         self.close()

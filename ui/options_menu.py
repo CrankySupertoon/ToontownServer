@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file 'options_menu.ui',
 # licensing of 'options_menu.ui' applies.
 #
-# Created: Fri Nov  1 17:35:00 2019
+# Created: Sat Nov  2 23:02:49 2019
 #      by: pyside2-uic  running on PySide2 5.13.0
 #
 # WARNING! All changes made in this file will be lost!
@@ -355,8 +355,16 @@ class Ui_Options_Menu(object):
         self.disableAccessoriesSlider.setOrientation(QtCore.Qt.Horizontal)
         self.disableAccessoriesSlider.setObjectName("disableAccessoriesSlider")
         self.saveChangesButton = QtWidgets.QPushButton(self.tab_4)
-        self.saveChangesButton.setGeometry(QtCore.QRect(100, 430, 161, 23))
+        self.saveChangesButton.setGeometry(QtCore.QRect(100, 460, 161, 23))
         self.saveChangesButton.setObjectName("saveChangesButton")
+        self.label_41 = QtWidgets.QLabel(self.tab_4)
+        self.label_41.setGeometry(QtCore.QRect(0, 430, 91, 16))
+        self.label_41.setObjectName("label_41")
+        self.discordIntergration = QtWidgets.QSlider(self.tab_4)
+        self.discordIntergration.setGeometry(QtCore.QRect(100, 430, 21, 22))
+        self.discordIntergration.setMaximum(1)
+        self.discordIntergration.setOrientation(QtCore.Qt.Horizontal)
+        self.discordIntergration.setObjectName("discordIntergration")
         self.tabWidget.addTab(self.tab_4, "")
         self.tab_2 = QtWidgets.QWidget()
         self.tab_2.setObjectName("tab_2")
@@ -372,7 +380,7 @@ class Ui_Options_Menu(object):
         self.tabWidget.addTab(self.tab_2, "")
 
         self.retranslateUi(Options_Menu)
-        self.tabWidget.setCurrentIndex(2)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(Options_Menu)
 
     def retranslateUi(self, Options_Menu):
@@ -407,7 +415,7 @@ class Ui_Options_Menu(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.Content_Pack), QtWidgets.QApplication.translate("Options_Menu", "Controls", None, -1))
         self.gameModes.setItemText(0, QtWidgets.QApplication.translate("Options_Menu", "Local", None, -1))
         self.gameModes.setItemText(1, QtWidgets.QApplication.translate("Options_Menu", "Server", None, -1))
-        self.label.setText(QtWidgets.QApplication.translate("Options_Menu", "Game mode", None, -1))
+        self.label.setText(QtWidgets.QApplication.translate("Options_Menu", "Gamemode", None, -1))
         self.label_2.setText(QtWidgets.QApplication.translate("Options_Menu", "IP Address", None, -1))
         self.returnButton_5.setText(QtWidgets.QApplication.translate("Options_Menu", "Return", None, -1))
         self.label_29.setText(QtWidgets.QApplication.translate("Options_Menu", "<html><head/><body><p><span style=\" font-weight:600;\">Login settings</span></p></body></html>", None, -1))
@@ -446,6 +454,7 @@ class Ui_Options_Menu(object):
         self.label_39.setText(QtWidgets.QApplication.translate("Options_Menu", "Particle Effects", None, -1))
         self.label_40.setText(QtWidgets.QApplication.translate("Options_Menu", "Disable Accessories", None, -1))
         self.saveChangesButton.setText(QtWidgets.QApplication.translate("Options_Menu", "Save Changes", None, -1))
+        self.label_41.setText(QtWidgets.QApplication.translate("Options_Menu", "Discord Integration", None, -1))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), QtWidgets.QApplication.translate("Options_Menu", "Game settings", None, -1))
         self.resource_Button.setText(QtWidgets.QApplication.translate("Options_Menu", "Resource Folder", None, -1))
         self.returnButton_3.setText(QtWidgets.QApplication.translate("Options_Menu", "Return", None, -1))

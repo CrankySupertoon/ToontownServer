@@ -35,7 +35,7 @@
     </size>
    </property>
    <property name="currentIndex">
-    <number>2</number>
+    <number>0</number>
    </property>
    <widget class="QWidget" name="Content_Pack">
     <property name="maximumSize">
@@ -826,7 +826,7 @@
       </rect>
      </property>
      <property name="text">
-      <string>Game mode</string>
+      <string>Gamemode</string>
      </property>
     </widget>
     <widget class="QLabel" name="label_2">
@@ -1279,13 +1279,42 @@
      <property name="geometry">
       <rect>
        <x>100</x>
-       <y>430</y>
+       <y>460</y>
        <width>161</width>
        <height>23</height>
       </rect>
      </property>
      <property name="text">
       <string>Save Changes</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_41">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>430</y>
+       <width>91</width>
+       <height>16</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Discord Integration</string>
+     </property>
+    </widget>
+    <widget class="QSlider" name="discordIntergration">
+     <property name="geometry">
+      <rect>
+       <x>100</x>
+       <y>430</y>
+       <width>21</width>
+       <height>22</height>
+      </rect>
+     </property>
+     <property name="maximum">
+      <number>1</number>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
      </property>
     </widget>
    </widget>

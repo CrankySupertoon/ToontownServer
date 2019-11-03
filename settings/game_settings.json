@@ -1,0 +1,23 @@
+{
+    "Login Settings": 
+    [
+      {"Gamemode": "Local"},
+      {"IP Address": ""}
+    ],
+    "Graphical Settings":
+    [
+      {"Display Mode": "Windowed"},
+      {"Resolution": [
+        800,
+        600
+      ]},
+      {"Show FPS": false},
+      {"V-Sync": false},
+      {"Antialising": "Off"},
+      {"LOD Distance": "Near"},
+      {"Animation Blending": false},
+      {"GUI Animation": false},
+      {"Particle effects": false},
+      {"Disabl Accesories": false}
+    ]
+  }
