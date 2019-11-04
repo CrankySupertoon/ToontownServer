@@ -7,10 +7,10 @@ Features:
 - Very modular
 
 Instructions: 
-- Install os, subprocesses, sys, zipfile, PySide2, shutil, and pathlib
+- Install os, subprocesses, sys, PySide2, shutil, and pathlib
 - Run launcher.py
 - Type in username
-- Select server mode
+- Select gamemode that you wish to use
 - Grab ppython.exe from panda3d/python folder
 - Play
 
