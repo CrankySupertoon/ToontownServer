@@ -33,35 +33,6 @@
      <string>Username...</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="playButton">
-    <property name="geometry">
-     <rect>
-      <x>280</x>
-      <y>150</y>
-      <width>170</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>0</width>
-      <height>0</height>
-     </size>
-    </property>
-    <property name="maximumSize">
-     <size>
-      <width>170</width>
-      <height>20</height>
-     </size>
-    </property>
-    <property name="text">
-     <string>Play Game</string>
-    </property>
-    <property name="icon">
-     <iconset>
-      <normaloff>play_button.png</normaloff>play_button.png</iconset>
-    </property>
-   </widget>
    <widget class="QPushButton" name="options_menu">
     <property name="geometry">
      <rect>
@@ -79,19 +50,6 @@
     </property>
     <property name="text">
      <string>Options</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="password">
-    <property name="geometry">
-     <rect>
-      <x>280</x>
-      <y>120</y>
-      <width>171</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Password...</string>
     </property>
    </widget>
   </widget>

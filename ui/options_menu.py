@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file 'options_menu.ui',
 # licensing of 'options_menu.ui' applies.
 #
-# Created: Sun Nov  3 19:56:53 2019
+# Created: Sun Nov  3 23:11:14 2019
 #      by: pyside2-uic  running on PySide2 5.13.0
 #
 # WARNING! All changes made in this file will be lost!
@@ -22,9 +22,6 @@ class Ui_Options_Menu(object):
         self.Content_Pack = QtWidgets.QWidget()
         self.Content_Pack.setMaximumSize(QtCore.QSize(800, 600))
         self.Content_Pack.setObjectName("Content_Pack")
-        self.returnButton_4 = QtWidgets.QPushButton(self.Content_Pack)
-        self.returnButton_4.setGeometry(QtCore.QRect(0, 550, 75, 23))
-        self.returnButton_4.setObjectName("returnButton_4")
         self.label_3 = QtWidgets.QLabel(self.Content_Pack)
         self.label_3.setGeometry(QtCore.QRect(10, 40, 51, 21))
         self.label_3.setObjectName("label_3")
@@ -249,9 +246,6 @@ class Ui_Options_Menu(object):
         self.ipAddress = QtWidgets.QLineEdit(self.tab_4)
         self.ipAddress.setGeometry(QtCore.QRect(100, 60, 161, 20))
         self.ipAddress.setObjectName("ipAddress")
-        self.returnButton_5 = QtWidgets.QPushButton(self.tab_4)
-        self.returnButton_5.setGeometry(QtCore.QRect(0, 550, 75, 23))
-        self.returnButton_5.setObjectName("returnButton_5")
         self.label_29 = QtWidgets.QLabel(self.tab_4)
         self.label_29.setGeometry(QtCore.QRect(0, 10, 81, 16))
         self.label_29.setObjectName("label_29")
@@ -365,6 +359,9 @@ class Ui_Options_Menu(object):
         self.discordIntergration.setMaximum(1)
         self.discordIntergration.setOrientation(QtCore.Qt.Horizontal)
         self.discordIntergration.setObjectName("discordIntergration")
+        self.playGame = QtWidgets.QPushButton(self.tab_4)
+        self.playGame.setGeometry(QtCore.QRect(280, 460, 161, 23))
+        self.playGame.setObjectName("playGame")
         self.tabWidget.addTab(self.tab_4, "")
         self.tab_2 = QtWidgets.QWidget()
         self.tab_2.setObjectName("tab_2")
@@ -374,18 +371,14 @@ class Ui_Options_Menu(object):
         self.treeView = QtWidgets.QTreeView(self.tab_2)
         self.treeView.setGeometry(QtCore.QRect(0, 0, 801, 161))
         self.treeView.setObjectName("treeView")
-        self.returnButton_3 = QtWidgets.QPushButton(self.tab_2)
-        self.returnButton_3.setGeometry(QtCore.QRect(0, 550, 75, 23))
-        self.returnButton_3.setObjectName("returnButton_3")
         self.tabWidget.addTab(self.tab_2, "")
 
         self.retranslateUi(Options_Menu)
-        self.tabWidget.setCurrentIndex(1)
+        self.tabWidget.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(Options_Menu)
 
     def retranslateUi(self, Options_Menu):
         Options_Menu.setWindowTitle(QtWidgets.QApplication.translate("Options_Menu", "Option Menu", None, -1))
-        self.returnButton_4.setText(QtWidgets.QApplication.translate("Options_Menu", "Return", None, -1))
         self.label_3.setText(QtWidgets.QApplication.translate("Options_Menu", "Walking up", None, -1))
         self.label_4.setText(QtWidgets.QApplication.translate("Options_Menu", "Walking left", None, -1))
         self.label_5.setText(QtWidgets.QApplication.translate("Options_Menu", "Walking right", None, -1))
@@ -417,7 +410,6 @@ class Ui_Options_Menu(object):
         self.gameModes.setItemText(1, QtWidgets.QApplication.translate("Options_Menu", "Server", None, -1))
         self.label.setText(QtWidgets.QApplication.translate("Options_Menu", "Gamemode", None, -1))
         self.label_2.setText(QtWidgets.QApplication.translate("Options_Menu", "IP Address", None, -1))
-        self.returnButton_5.setText(QtWidgets.QApplication.translate("Options_Menu", "Return", None, -1))
         self.label_29.setText(QtWidgets.QApplication.translate("Options_Menu", "<html><head/><body><p><span style=\" font-weight:600;\">Login settings</span></p></body></html>", None, -1))
         self.label_30.setText(QtWidgets.QApplication.translate("Options_Menu", "<html><head/><body><p><span style=\" font-weight:600;\">Graphical Settings</span></p></body></html>", None, -1))
         self.label_31.setText(QtWidgets.QApplication.translate("Options_Menu", "Display Mode", None, -1))
@@ -455,8 +447,8 @@ class Ui_Options_Menu(object):
         self.label_40.setText(QtWidgets.QApplication.translate("Options_Menu", "Disable Accessories", None, -1))
         self.saveChangesButton.setText(QtWidgets.QApplication.translate("Options_Menu", "Save Changes", None, -1))
         self.label_41.setText(QtWidgets.QApplication.translate("Options_Menu", "Discord Integration", None, -1))
+        self.playGame.setText(QtWidgets.QApplication.translate("Options_Menu", "Play", None, -1))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), QtWidgets.QApplication.translate("Options_Menu", "Game settings", None, -1))
         self.resource_Button.setText(QtWidgets.QApplication.translate("Options_Menu", "Resource Folder", None, -1))
-        self.returnButton_3.setText(QtWidgets.QApplication.translate("Options_Menu", "Return", None, -1))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), QtWidgets.QApplication.translate("Options_Menu", "Content Packs", None, -1))
 
