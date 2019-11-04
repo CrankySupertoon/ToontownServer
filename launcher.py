@@ -5,100 +5,113 @@
 import os
 import subprocess
 from sys import platform
-import zipfile
 from PySide2 import QtWidgets, QtCore, QtGui
 import shutil
 from pathlib import Path
-from ui import main, CPL
+from ui import main, CPL, options_menu
+import json
 
-# Content pack launcher
-# Lets the user select content packs and replace current resources with them
-# Accepts .mf only
-class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
+class Options_Menu(options_menu.Ui_Options_Menu, QtWidgets.QMainWindow):
     def __init__(self, parent=None):
-        super(Content_Pack_Launcher, self).__init__(parent)
+        super(Options_Menu, self).__init__(parent)
         self.setupUi(self)
-        path = "content_packs"
-        resources_dir = "resources"
-        default_name = "default"
+        # Sets up what will be run whenever we load the page
+        self.contentPackExplorer()
+        self.resource_Button.clicked.connect(self.openResourceFolder)
 
-        # Checks if content pack folder is made, otherwise make it
-        if os.path.isdir(path):
-            print("this exists, doing nothing!\n")
-            os.chdir(path)
-            print("Current dir is : ", os.getcwd())
-            self.load.clicked.connect(self.open_resource_folder)
+        self.hotKeySelector()
+        self.graphicalSliders()
+
+        self.saveChangesButton.clicked.connect(self.graphicalSliders)
+    # Opens up the content pack folder
+    def openResourceFolder(self):
+        if(os.getcwd() == "content_packs"):
+            print("In this directory, no need to change")
         else:
-            print("this does not exist, now making!")
-            os.makedirs(path)
-            os.chdir(path)
-            
-
-        self.load.clicked.connect(self.open_resource_folder)
-        self.back.clicked.connect(self.return_main)
-        self.load_cp.clicked.connect(self.content_pack_opener)
-        '''if open("default.mf", 'w'):
-            try:
-                if os.path.isdir(resources_dir):
-                    print("Currently in resources, no need to change!")
-                else:
-                    print("Not present in resources... changing...")
-                    os.chdir("../")
-                    print("Current dir is : ", os.getcwd())
-                    if os.path.isdir(resources_dir):
-                        print("I'm here to prevent an error when there's a folder error\n")
-                    else:
-                        resources_path = os.chdir("resources")
-                        print("Current dir is : ", os.getcwd())
-                        print("Now done with directory change")
-                    
-            except ValueError:
-                print("Wtf man...why am I doing this twice?")'''
-
-    # Is the back button, returns to main menu       
-    def return_main(self):
-        self.hide()
-        main_win = main_window()
-        main_win.show()
-        main_win.exec_()
-        print("Now returning to main menu!")
-        # Returns to base directory so game can load
-        os.chdir("../")
-
-    # Opens resource folder 
-    def open_resource_folder(self, path):
-        print(os.getcwd())
+            print("Not in the directory, switching now...")
+            print(os.getcwd())
+            os.chdir("content_packs")
+            print(os.getcwd())
 
         if platform == "win32":
-            print("hi, I'm on windows!")
             subprocess.Popen(r'explorer /select, ' + os.getcwd(), shell = True)
+    
+    # Loads up the graphical sliders
+    def graphicalSliders(self):
+        # Reads the info for the sliders
+        with open('settings/game_settings.json', 'r') as loop:
+            data = json.load(loop)
 
-            # Allows us to grab the entire folder and its contents
-            '''def retrieve_file(dir_name):
-                # setup file paths variable
-                filePaths = []
+        # Modifies the content of the sliders
+        with open('settings/game_settings.json', 'w') as loop:
+            data["Graphical Settings"]["Show FPS"] = self.fpsSlider.value()
+            data["Graphical Settings"]["V-Sync"] = self.vSyncSlider.value()
+            data["Graphical Settings"]["Animation Blending"] = self.animationSlider.value()
+            data["Graphical Settings"]["GUI Animation"] = self.guiSlider.value()
+            data["Graphical Settings"]["Particle effects"] = self.particleSlider.value()
+            data["Graphical Settings"]["Disable Accesories"] = self.disableAccessoriesSlider.value()
+            data["Graphical Settings"]["Discord Integration"] = self.discordIntergration.value()
+            json.dump(data, loop, indent = 1)
+            
+    # Loads up the defined hot keys located in settings/controls.json
+    def hotKeySelector(self):
+        with open('settings/controls.json') as loop:
+            data = json.load(loop)
 
-                # Read all directory, subdirectories and file lists
-                for root, directories, files in os.walk(dir_name):
-                    for filename in files:
-                        # Create the full filepath by using os module.
-                        filePath = os.path.join(root, filename)
-                        filePaths.append(filePath)
+        # Sets the controls from the controls json file
+        self.walkUpButton.setText(data["Controls"]['walk-up'])
+        self.walkLeftButton.setText(data["Controls"]['walk-left'])
+        self.walkRightButton.setText(data["Controls"]['walk-right'])
+        self.walkDownButton.setText(data["Controls"]['walk-down'])
 
-            # return all paths
-            return filePaths
+        self.jumpButton.setText(data["Controls"]['jump'])
 
-    def zipper(dir_name):
-        # writing files to a zipfile
-        zip_file = zipfile.ZipFile(dir_name + '.zip', 'w')
-        with zip_file:
-            # writing each file one by one
-            for file in filePaths:
-                zip_file.write(file)
+        self.takeScreenButton.setText(data["Controls"]['screenshot'])
 
-        print(dir_name + '.zip file is created successfully!')'''
+        self.walkButton.setText(data["Controls"]['walk'])
 
-        
+        self.lookUpButton.setText(data["Controls"]['look-up'])
+        self.lookDownButton.setText(data["Controls"]['look-down'])
+
+        self.viewGagsButtons.setText(data["Controls"]['showGags'])
+
+        self.viewToontasksButton.setText(data["Controls"]['showTasks'])
+
+        self.openBookButton.setText(data["Controls"]['stickerBook'])
+
+        self.showAndHideButton.setText(data["Controls"]['toggleGUI'])
+
+        self.viewMapButton.setText(data["Controls"]['showMap'])
+
+        self.openFriendsButton.setText(data["Controls"]['friendsList'])
+
+        self.changeCameraButton.setText(data["Controls"]['cameraNext'])
+
+        self.PreviousCameraButton.setText(data["Controls"]['cameraPrev'])
+
+        self.performActionButton.setText(data["Controls"]['performAction'])
+
+        self.debugScreenButton.setText(data["Controls"]['debugScreenShots'])
+
+        self.displayDebugButton.setText(data["Controls"]['debugInfo'])
+
+        self.cogHQButton.setText(data["Controls"]['cogInfo'])
+
+        self.exitActivityButton.setText(data["Controls"]['exitActivity'])
+
+    
+    # Loads up the content pack folder and lets the user select the content pack
+    # Uses a treeview to show the actual contents of the folder itself
+    def contentPackExplorer(self):
+        path ="content_packs"
+        display = QtWidgets.QFileSystemModel()
+
+        display.setRootPath((QtCore.QDir.rootPath()))
+
+        self.treeView.setModel(display)
+        self.treeView.setRootIndex(display.index(path))
+        self.treeView.setSortingEnabled(True)
+
     # Opens the contents of the zip file and looks for mf file
     # replaces the contents of the resource folder with the resources provided with the .mf
     def content_pack_opener(self):
@@ -110,9 +123,11 @@ class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
         p = Path(file)
         Dir_Content_Packs= "./content_packs"
         Dir_Resources = "./resources"
+
         # Decompresses the .mf files
         print("Now unzipping .mf file...please hold")
         content_pack_unzip = subprocess.Popen("multify.exe -x -f " + p.name, shell=False)
+        
         # Waits till process is done
         content_pack_unzip.wait()
 
@@ -139,13 +154,10 @@ class Content_Pack_Launcher(CPL.Ui_CPL, QtWidgets.QMainWindow):
                     contentFilePath  = os.path.join(contentRoot, contentFile)
                     shutil.copyfile(contentFilePath, resourceFilePath)
                 
-        
-        
         print(os.getcwd())
         os.chdir("../")
         print("Success! Now launch the game with your new files")
-        
-            
+
         
 # Initates the basic UI elements
 class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
@@ -154,20 +166,17 @@ class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
         super(main_window, self).__init__()
         self.setupUi(self)
 
-        # Sets the combobox item value to a blank item
-        self.option.setCurrentIndex(-1)
-        # Connects the signal for both
-        self.option.currentTextChanged.connect(self.combo_options)
+        
         if not self.name.text:
             QtWidgets.QMessageBox.about(self, "IP address", "Hey! \nYou need a name in order to launch the game\n")
 
-        self.cp.clicked.connect(self.content_pack_window)
+        self.options_menu.clicked.connect(self.content_pack_window)
         print("Directory is currently: " + os.getcwd())
-        print((0 - 7) % 10)
+       
     # Opens the content pack window
     def content_pack_window(self):
         self.hide()
-        cpl = Content_Pack_Launcher()
+        cpl = Options_Menu()
         cpl.show()
         cpl.exec_()
         cpl.setWindowModality(QtCore.Qt.WindowModal)
@@ -188,6 +197,7 @@ class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
                 self.playButton.clicked.connect(self.linux_local_host)
             if platform == "win32":
                 self.playButton.clicked.connect(self.win32_local_host)
+
         elif index == "Server":
             print("Server")
             self.option.setCurrentIndex(1)
@@ -208,7 +218,6 @@ class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
         os.environ['input'] = '1'
         os.environ['TTS_GAMESERVER'] = IP_Address
         os.environ['TTS_PLAYCOOKIE'] = username
-
 
         subprocess.Popen(PPython + " -m toontown.toonbase.ToontownStart", shell=False)
         self.close()

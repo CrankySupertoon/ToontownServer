@@ -1,0 +1,39 @@
+{
+ "Login Settings": {
+  "Gamemode": "Local",
+  "Index": 0,
+  "IP Address": ""
+ },
+ "Graphical Settings": {
+  "Display Mode": {
+   "index": 0,
+   "mode": "Windowed"
+  },
+  "Resolution": {
+   "index": 0,
+   "Screen": [
+    800,
+    600
+   ]
+  },
+  "Show FPS": 1,
+  "V-Sync": 1,
+  "Antialising": {
+   "index": 0,
+   "Setting": "Off"
+  },
+  "LOD Distance": [
+   {
+    "Index": 0
+   },
+   {
+    "Setting": "Near"
+   }
+  ],
+  "Animation Blending": 1,
+  "GUI Animation": 1,
+  "Particle effects": 1,
+  "Disable Accesories": 1,
+  "Discord Integration": 1
+ }
+}
