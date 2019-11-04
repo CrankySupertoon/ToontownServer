@@ -1,21 +1,27 @@
 {
-    "Controls": [
-      {"walk-up": "Up Arrow"},
-      {"walk-left": "Left Arrow"},
-      {"walk-right": "Right Arrow"},
-      {"walk-down": "Down Arrow"},
-      {"jump": "Control"},
-      {"screenshot": "F9"},
-      {"walk": "Shift"},
-      {"look-up": "Page Up"},
-      {"look-down": "Page Down"},
-      {"showGags": "Home"},
-      {"showTasks": "End"},
-      {"stickerBook": "F8"},
-      {"toggleGUI": "F3"},
-      {"showMap": "alt"},
-      {"friendsList": "F7"},
-      {"cameraNext": "Tab"},
-      {"cameraPrev": "Shift-Tab"}
-    ]
+    "Controls": 
+    {
+      "walk-up": "Up Arrow",
+      "walk-left": "Left Arrow",
+      "walk-right": "Right Arrow",
+      "walk-down": "Down Arrow",
+      "jump": "Control",
+      "screenshot": "F9",
+      "walk": "Shift",
+      "look-up": "Page Up",
+      "look-down": "Page Down",
+      "showGags": "Home",
+      "showTasks": "End",
+      "stickerBook": "F8",
+      "toggleGUI": "F3",
+      "showMap": "alt",
+      "friendsList": "F7",
+      "cameraNext": "Tab",
+      "cameraPrev": "Shift-Tab",
+      "performAction": "Delete",
+      "debugScreenShots": "F10",
+      "debugInfo": "Shift-F1",
+      "cogInfo": "F2",
+      "exitActivity": "Escape"
+    }
   }

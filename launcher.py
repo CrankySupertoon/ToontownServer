@@ -5,7 +5,6 @@
 import os
 import subprocess
 from sys import platform
-import zipfile
 from PySide2 import QtWidgets, QtCore, QtGui
 import shutil
 from pathlib import Path
@@ -19,9 +18,11 @@ class Options_Menu(options_menu.Ui_Options_Menu, QtWidgets.QMainWindow):
         # Sets up what will be run whenever we load the page
         self.contentPackExplorer()
         self.resource_Button.clicked.connect(self.openResourceFolder)
-        self.hotKeySelector()
-        self.graphicalSettings()
 
+        self.hotKeySelector()
+        self.graphicalSliders()
+
+        self.saveChangesButton.clicked.connect(self.graphicalSliders)
     # Opens up the content pack folder
     def openResourceFolder(self):
         if(os.getcwd() == "content_packs"):
@@ -33,49 +34,70 @@ class Options_Menu(options_menu.Ui_Options_Menu, QtWidgets.QMainWindow):
             print(os.getcwd())
 
         if platform == "win32":
-            print("hi, I'm on windows!")
             subprocess.Popen(r'explorer /select, ' + os.getcwd(), shell = True)
     
-    # Loads up the graphical settings
-    def graphicalSettings(self):
-        with open('settings/game_settings.json') as loop:
+    # Loads up the graphical sliders
+    def graphicalSliders(self):
+        # Reads the info for the sliders
+        with open('settings/game_settings.json', 'r') as loop:
             data = json.load(loop)
 
+        # Modifies the content of the sliders
+        with open('settings/game_settings.json', 'w') as loop:
+            data["Graphical Settings"]["Show FPS"] = self.fpsSlider.value()
+            data["Graphical Settings"]["V-Sync"] = self.vSyncSlider.value()
+            data["Graphical Settings"]["Animation Blending"] = self.animationSlider.value()
+            data["Graphical Settings"]["GUI Animation"] = self.guiSlider.value()
+            data["Graphical Settings"]["Particle effects"] = self.particleSlider.value()
+            data["Graphical Settings"]["Disable Accesories"] = self.disableAccessoriesSlider.value()
+            data["Graphical Settings"]["Discord Integration"] = self.discordIntergration.value()
+            json.dump(data, loop, indent = 1)
+            
     # Loads up the defined hot keys located in settings/controls.json
     def hotKeySelector(self):
         with open('settings/controls.json') as loop:
             data = json.load(loop)
 
         # Sets the controls from the controls json file
-        self.walkUpButton.setText(data["Controls"][0]['walk-up'])
-        self.walkLeftButton.setText(data["Controls"][1]['walk-left'])
-        self.walkRightButton.setText(data["Controls"][2]['walk-right'])
-        self.walkDownButton.setText(data["Controls"][3]['walk-down'])
+        self.walkUpButton.setText(data["Controls"]['walk-up'])
+        self.walkLeftButton.setText(data["Controls"]['walk-left'])
+        self.walkRightButton.setText(data["Controls"]['walk-right'])
+        self.walkDownButton.setText(data["Controls"]['walk-down'])
 
-        self.jumpButton.setText(data["Controls"][4]['jump'])
+        self.jumpButton.setText(data["Controls"]['jump'])
 
-        self.takeScreenButton.setText(data["Controls"][5]['screenshot'])
+        self.takeScreenButton.setText(data["Controls"]['screenshot'])
 
-        self.walkButton.setText(data["Controls"][6]['walk'])
+        self.walkButton.setText(data["Controls"]['walk'])
 
-        self.lookUpButton.setText(data["Controls"][7]['look-up'])
-        self.lookDownButton.setText(data["Controls"][8]['look-down'])
+        self.lookUpButton.setText(data["Controls"]['look-up'])
+        self.lookDownButton.setText(data["Controls"]['look-down'])
 
-        self.viewGagsButtons.setText(data["Controls"][9]['showGags'])
+        self.viewGagsButtons.setText(data["Controls"]['showGags'])
 
-        self.viewToontasksButton.setText(data["Controls"][10]['showTasks'])
+        self.viewToontasksButton.setText(data["Controls"]['showTasks'])
 
-        self.openBookButton.setText(data["Controls"][11]['stickerBook'])
+        self.openBookButton.setText(data["Controls"]['stickerBook'])
 
-        self.showAndHideButton.setText(data["Controls"][12]['toggleGUI'])
+        self.showAndHideButton.setText(data["Controls"]['toggleGUI'])
 
-        self.viewMapButton.setText(data["Controls"][13]['showMap'])
+        self.viewMapButton.setText(data["Controls"]['showMap'])
 
-        self.openFriendsButton.setText(data["Controls"][14]['friendsList'])
+        self.openFriendsButton.setText(data["Controls"]['friendsList'])
 
-        self.changeCameraButton.setText(data["Controls"][15]['cameraNext'])
+        self.changeCameraButton.setText(data["Controls"]['cameraNext'])
 
-        self.PreviousCameraButton.setText(data["Controls"][16]['cameraPrev'])
+        self.PreviousCameraButton.setText(data["Controls"]['cameraPrev'])
+
+        self.performActionButton.setText(data["Controls"]['performAction'])
+
+        self.debugScreenButton.setText(data["Controls"]['debugScreenShots'])
+
+        self.displayDebugButton.setText(data["Controls"]['debugInfo'])
+
+        self.cogHQButton.setText(data["Controls"]['cogInfo'])
+
+        self.exitActivityButton.setText(data["Controls"]['exitActivity'])
 
     
     # Loads up the content pack folder and lets the user select the content pack

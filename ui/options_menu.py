@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file 'options_menu.ui',
 # licensing of 'options_menu.ui' applies.
 #
-# Created: Sat Nov  2 23:02:49 2019
+# Created: Sun Nov  3 19:56:53 2019
 #      by: pyside2-uic  running on PySide2 5.13.0
 #
 # WARNING! All changes made in this file will be lost!
@@ -380,7 +380,7 @@ class Ui_Options_Menu(object):
         self.tabWidget.addTab(self.tab_2, "")
 
         self.retranslateUi(Options_Menu)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(Options_Menu)
 
     def retranslateUi(self, Options_Menu):
