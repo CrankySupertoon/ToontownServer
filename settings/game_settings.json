@@ -1,8 +1,8 @@
 {
  "Login Settings": {
-  "Gamemode": "Local",
   "Index": 0,
-  "IP Address": ""
+  "IP Address": "",
+  "Username": ""
  },
  "Graphical Settings": {
   "Display Mode": {
@@ -24,10 +24,8 @@
   },
   "LOD Distance": [
    {
-    "Index": 0
-   },
-   {
-    "Setting": "Near"
+    "Index": 0,
+    "Setting": "Far"
    }
   ],
   "Animation Blending": 1,

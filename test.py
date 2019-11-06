@@ -1,6 +1,6 @@
 import json
 
-with open('settings/controls.json') as loop:
-        data = json.load(loop)
+with open('settings/game_settings.json', 'r') as loop:
+            data = json.load(loop)
 
-print(data["Controls"][0]['walk-up'])
+print(data["Login Settings"]["IP Address"])
