@@ -5,6 +5,7 @@ Features:
 - JSON support for data loading, making it easy to store data
 - Available on Mac, Windows, and Linux
 - Very modular
+- UI is designed in QT Designer
 
 Instructions: 
 - Install os, subprocesses, sys, PySide2, shutil, and pathlib
