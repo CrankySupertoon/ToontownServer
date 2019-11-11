@@ -1,4 +1,4 @@
-# Created by Abrahan Nevarez on August 24th 2019
+# Created by Abrahan Nevarez
 # Created for the use of the base game Toontown Stride
 # Can be modified for other servers
 
@@ -8,12 +8,12 @@ from sys import platform
 from PySide2 import QtWidgets, QtCore, QtGui
 import shutil
 from pathlib import Path
-from ui import main, CPL, options_menu
+from ui import mainWindow, optionsMenu
 import json
 
-class Options_Menu(options_menu.Ui_Options_Menu, QtWidgets.QMainWindow):
+class optionsMenu(optionsMenu.Ui_Options_Menu, QtWidgets.QMainWindow):
     def __init__(self, parent=None):
-        super(Options_Menu, self).__init__(parent)
+        super(optionsMenu, self).__init__(parent)
         self.setupUi(self)
         # Sets up what will be run whenever we load the page
         # Loads up the content pack tree node
@@ -31,16 +31,18 @@ class Options_Menu(options_menu.Ui_Options_Menu, QtWidgets.QMainWindow):
 
         # Login data combobox
         self.gameModes.currentTextChanged.connect(self.loginSettings)
-        self.treeView.doubleClicked.connect(self.content_pack_opener)
+        self.treeView.doubleClicked.connect(self.contentPackOpener)
     
     # Reads JSON data and dumps it
     def optionsJSON(self):
         # Reads the info for the sliders
-        with open('settings/game_settings.json', 'r') as loop:
+        with open("settings/gameSettings.json", "r") as loop:
             data = json.load(loop)
+            
+            
 
-        # Modifies the content of the sliders and other settings from comboboxes
-        with open('settings/game_settings.json', 'w') as update:
+        # Modifies the content of the sliders
+        with open('settings/gameSettings.json', 'w') as update:
             data["Graphical Settings"]["Show FPS"] = self.fpsSlider.value()
             data["Graphical Settings"]["V-Sync"] = self.vSyncSlider.value()
             data["Graphical Settings"]["Animation Blending"] = self.animationSlider.value()
@@ -51,6 +53,25 @@ class Options_Menu(options_menu.Ui_Options_Menu, QtWidgets.QMainWindow):
             data["Login Settings"]["IP Address"] = self.ipAddress.text()
             data["Login Settings"]["Index"] = self.gameModes.currentIndex()
             json.dump(data, update, indent = 1)
+
+        with open("settings/data.json", "r") as loop:
+            dataBox = json.load(loop)
+            
+            # Loops to grab the data from the JSON objects
+            for i in dataBox["Resolution"]:
+                self.resolutionBox.addItem(i)
+                
+            for i in dataBox["Display Mode"]:
+                self.DisplayMode.addItem(str(i))
+                
+            for i in dataBox["Display Mode"]:
+                self.antiAliasingBox.addItem(i)
+            
+            for i in dataBox["LOD Distance"]:
+                self.lodDistanceBox.addItem(i)
+        
+
+
         
     # Loads up the defined hot keys located in settings/controls.json
     def hotKeySelector(self):
@@ -99,7 +120,7 @@ class Options_Menu(options_menu.Ui_Options_Menu, QtWidgets.QMainWindow):
         self.exitActivityButton.setText(data["Controls"]['exitActivity'])
 
     def loginSettings(self, index):
-        # Modifies the content of the sliders
+        # Checks the content of the comboboxes
         
             if index == "Local":
                 print("Local")
@@ -119,6 +140,7 @@ class Options_Menu(options_menu.Ui_Options_Menu, QtWidgets.QMainWindow):
                 self.gameModes.setCurrentIndex(1)
                 self.ipAddress.setText("")
                 self.ipAddress.setReadOnly(False)
+
                 if platform == "linux" or platform == "linux2":
                     self.playGame.clicked.connect(self.linuxServerHost)
 
@@ -129,7 +151,10 @@ class Options_Menu(options_menu.Ui_Options_Menu, QtWidgets.QMainWindow):
     # Loads up the content pack folder and lets the user select the content pack
     # Uses a treeview to show the actual contents of the folder itself
     def contentPackExplorer(self):
-        path ="content_packs"
+        # Gives us the proper path
+        path ="contentpacks"
+
+        # Creates a new filesystemmodel, makes it easy to click on .mf files
         self.display = QtWidgets.QFileSystemModel()
 
         self.display.setRootPath((QtCore.QDir.rootPath()))
@@ -141,31 +166,32 @@ class Options_Menu(options_menu.Ui_Options_Menu, QtWidgets.QMainWindow):
     
     # Opens the contents of the zip file and looks for mf file
     # replaces the contents of the resource folder with the resources provided with the .mf
-    # Will be replaced with a tree node based system
-    def content_pack_opener(self, index):
-        
+    def contentPackOpener(self, index):
+        # Grabs the name of the file and file path
         index = self.treeView.currentIndex()
         file = self.display.filePath(index)
 
         # Allows us to break the path into multiple segments
         p = Path(file)
-        Dir_Content_Packs = "./content_packs"
-        Dir_Resources = "./resources"
+
+        # Lets us store the paths for later
+        dirContentPacks = "./contentpacks"
+        dirResources = "./resources"
 
         # Decompresses the .mf files
         print("Now unzipping .mf file...please hold")
-        os.chdir("content_packs")
-        content_pack_unzip = subprocess.Popen("multify.exe -x -f " + p.name, shell=False)
+        os.chdir("contentpacks")
+        contentPackUnzip = subprocess.Popen("multify.exe -x -f " + p.name, shell=False)
         
         # Waits till process is done
-        content_pack_unzip.wait()
+        contentPackUnzip.wait()
 
         print("Okay, I'm done unzipping all the files:")
         print("Now moving files to resources!")
         
         # Search through all folders and files
         os.chdir("../")
-        for root, folders, files in os.walk(Dir_Content_Packs):
+        for root, folders, files in os.walk(dirContentPacks):
 
             # Look at each file
             for contentFile in files:
@@ -174,7 +200,7 @@ class Options_Menu(options_menu.Ui_Options_Menu, QtWidgets.QMainWindow):
                 contentRoot = root
 
                 # Replace the ./content_packs/ path with the ./resources/ path
-                resourceRoot = root.replace(Dir_Content_Packs, Dir_Resources)
+                resourceRoot = root.replace(dirContentPacks, dirResources)
                 resourceFilePath = os.path.join(resourceRoot, contentFile)
 
                 # Check whether the directory ./resources/ has that file
@@ -183,25 +209,27 @@ class Options_Menu(options_menu.Ui_Options_Menu, QtWidgets.QMainWindow):
                 # If so, replace the file inside ./resources/ with the one from ./content_packs/
                     contentFilePath  = os.path.join(contentRoot, contentFile)
                     shutil.copyfile(contentFilePath, resourceFilePath)
+
         print("Now cleaning up")
         print(os.getcwd())
+
         # Going back in to remove files that are folders   
         try:
-            shutil.rmtree(Dir_Content_Packs)
+            shutil.rmtree(dirContentPacks)
         except OSError as e:
             print ("Error: %s - %s." % (e.filename, e.strerror))
         
         # Make another directory
-        os.mkdir("content_packs")
+        os.mkdir("contentpacks")
         
         print("Success! Now launch the game with your new files")
         
     # Runs the astron cluster to start the server
-    def startAstronCluster(self):
-        os.chdir("dependencies/astron/")
+    def startAstronClusterWin32(self):
+        os.chdir("dependencies/astron")
 
     # Starts up the AI server
-    def startAiServer(self, districtName, ppython):
+    def startAiServerWin32(self, districtName, ppython):
         os.environ["MAX_CHANNELS"] = "999999"
         os.environ["STATESERVER"] = "4002"
         os.environ["ASTRON_IP"] = "127.0.0.1:7100"
@@ -218,7 +246,7 @@ class Options_Menu(options_menu.Ui_Options_Menu, QtWidgets.QMainWindow):
         "\nEvent Logger IP:" + os.environ["EVENTLOGGER_IP"])
 
     # Starts up the uberdog server
-    def startUberDog(self, ppython):
+    def startUberDogWin32(self, ppython):
         # Create enviroment variables
         os.environ["MAX_CHANNELS"] = "999999"
         os.environ["STATESERVER"] = "4002"
@@ -304,14 +332,14 @@ class Options_Menu(options_menu.Ui_Options_Menu, QtWidgets.QMainWindow):
 
     # Code to start local host on windows!
     def win32LocalHost(self):
+        # Grabs ppython from where the user selects
         PPython, randomtext = QtWidgets.QFileDialog.getOpenFileName(self, self.tr("Open ppython file"), self.tr("C:\\"), self.tr("PPython (*.exe)"))
-        if not open(PPython):
-            print("Uh oh! stop this now!")
+        
         with open('settings/game_settings.json') as loop:
             data = json.load(loop)
 
         Username = data["Login Settings"]["Username"]
-
+        districtName = data["Login Settings"]["District Name"]
         backendir = os.chdir("dev/backend/")
         # Check to prevent a blank user
         if not Username:
@@ -324,11 +352,10 @@ class Options_Menu(options_menu.Ui_Options_Menu, QtWidgets.QMainWindow):
         Info.dwFlags = subprocess.STARTF_USESHOWWINDOW
         Info.wShowWindow = SW_HIDE
 
-        subprocess.Popen(r"start-astron-cluster.bat", startupinfo=Info)
-        subprocess.Popen(r"start-ai-server.bat", startupinfo=Info)
-        subprocess.Popen(r"start-uberdog-server.bat", startupinfo=Info)
-
-        ReturnDir = os.chdir("../../")
+        # Starts the server processes needed for windows localhost
+        startAstronClusterWin32()
+        startAiServerWin32(districtName, PPython)
+        startUberDogWin32(PPython)
 
         os.environ['input'] = '1'
 
@@ -351,44 +378,40 @@ class Options_Menu(options_menu.Ui_Options_Menu, QtWidgets.QMainWindow):
         main_menu.setWindowModality(QtCore.Qt.WindowModal)
 
 # Initates the basic UI elements
-class main_window(main.Ui_MainWindow, QtWidgets.QMainWindow):
-
+class mainWindow(mainWindow.Ui_MainWindow, QtWidgets.QMainWindow):
+     
     def __init__(self):
-        super(main_window, self).__init__()
+        super(mainWindow, self).__init__()
         self.setupUi(self)
-        
-        # Username check to make sure there exist one.
-        if not self.name.text:
-            QtWidgets.QMessageBox.about(self, "IP address", "Hey! \nYou need a name in order to launch the game\n")
-
-    
         self.options_menu.clicked.connect(self.optionsMenu)
-        print("Directory is currently: " + os.getcwd())
-       
+        
+
     # Opens the content pack window
     def optionsMenu(self):
+
         # Loads JSON data each time we venture into the options menu, makes it easy to store data
-        with open('settings/game_settings.json', 'r') as loop:
+        with open('settings/gameSettings.json', 'r') as loop:
             data = json.load(loop)
 
-        with open('settings/game_settings.json', 'w') as loop:
+        with open('settings/gameSettings.json', 'w') as loop:
             data["Login Settings"]["Username"]  = self.name.text()
+            data["Login Settings"]["District Name"] = self.districtName.text()
             json.dump(data, loop, indent = 1)
 
         # Assigns username data to JSON file    
         self.name.text = data["Login Settings"]["Username"]
-
+        self.districtName.text = data["Login Settings"]["District Name"]
         # Hides the window
         self.hide()
 
         # Opens the window
-        om = Options_Menu()
+        om = optionsMenu()
         om.show()
         om.exec_()
         om.setWindowModality(QtCore.Qt.WindowModal)
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication()
-    qt_app = main_window()
+    qt_app = mainWindow()
     qt_app.show()
     app.exec_()

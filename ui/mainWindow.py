@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'main.ui',
-# licensing of 'main.ui' applies.
+# Form implementation generated from reading ui file 'mainWindow.ui',
+# licensing of 'mainWindow.ui' applies.
 #
-# Created: Sun Nov  3 23:16:04 2019
+# Created: Sun Nov 10 20:24:25 2019
 #      by: pyside2-uic  running on PySide2 5.13.0
 #
 # WARNING! All changes made in this file will be lost!
@@ -24,6 +24,9 @@ class Ui_MainWindow(object):
         self.options_menu.setGeometry(QtCore.QRect(0, 540, 170, 20))
         self.options_menu.setMaximumSize(QtCore.QSize(170, 20))
         self.options_menu.setObjectName("options_menu")
+        self.districtName = QtWidgets.QLineEdit(self.centralwidget)
+        self.districtName.setGeometry(QtCore.QRect(280, 120, 171, 20))
+        self.districtName.setObjectName("districtName")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 21))
@@ -40,4 +43,5 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(QtWidgets.QApplication.translate("MainWindow", "Toontown Launcher", None, -1))
         self.name.setText(QtWidgets.QApplication.translate("MainWindow", "Username...", None, -1))
         self.options_menu.setText(QtWidgets.QApplication.translate("MainWindow", "Options", None, -1))
+        self.districtName.setText(QtWidgets.QApplication.translate("MainWindow", "District name...", None, -1))
 

@@ -3,33 +3,31 @@
   "Index": 0,
   "IP Address": "",
   "Username": "Username...",
-  "District": ""
+  "District Name": "District name..."
  },
  "Graphical Settings": {
-  "Display Mode": {
-   "index": 0,
-   "mode": ""
-  },
-  "Resolution": {
-   "index": 0,
-   "Screen": ""
-  },
   "Show FPS": 0,
   "V-Sync": 0,
-  "Antialising": {
-   "index": 0,
-   "Setting": ""
-  },
-  "LOD Distance": [
-   {
-    "Index": 0,
-    "Setting": ""
-   }
-  ],
   "Animation Blending": 0,
   "GUI Animation": 0,
   "Particle effects": 0,
   "Disable Accesories": 0,
   "Discord Integration": 0
+ },
+ "Resolution": {
+  "Index": "",
+  "Option": ""
+ },
+ "Display Mode": {
+  "Index": "",
+  "Option": ""
+ },
+ "Antialising": {
+  "Index": "",
+  "Option": ""
+ },
+ "LOD Distance": {
+  "Index": "",
+  "Option": ""
  }
 }
