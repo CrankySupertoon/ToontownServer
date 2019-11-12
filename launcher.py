@@ -10,6 +10,8 @@ import shutil
 from pathlib import Path
 from ui import mainWindow, optionsMenu
 import json
+import time
+import signal
 
 class optionsMenu(optionsMenu.Ui_Options_Menu, QtWidgets.QMainWindow):
     def __init__(self, parent=None):
@@ -22,7 +24,7 @@ class optionsMenu(optionsMenu.Ui_Options_Menu, QtWidgets.QMainWindow):
         # Loads in our keys and game settings json data
         self.hotKeySelector()
         self.optionsJSON()
-
+        self.optionsJSONCombo()
         # By default, shows an empty option so user can select the option that they want
         self.gameModes.setCurrentIndex(-1)
 
@@ -32,28 +34,9 @@ class optionsMenu(optionsMenu.Ui_Options_Menu, QtWidgets.QMainWindow):
         # Login data combobox
         self.gameModes.currentTextChanged.connect(self.loginSettings)
         self.treeView.doubleClicked.connect(self.contentPackOpener)
-    
-    # Reads JSON data and dumps it
-    def optionsJSON(self):
-        # Reads the info for the sliders
-        with open("settings/gameSettings.json", "r") as loop:
-            data = json.load(loop)
-            
-            
 
-        # Modifies the content of the sliders
-        with open('settings/gameSettings.json', 'w') as update:
-            data["Graphical Settings"]["Show FPS"] = self.fpsSlider.value()
-            data["Graphical Settings"]["V-Sync"] = self.vSyncSlider.value()
-            data["Graphical Settings"]["Animation Blending"] = self.animationSlider.value()
-            data["Graphical Settings"]["GUI Animation"] = self.guiSlider.value()
-            data["Graphical Settings"]["Particle effects"] = self.particleSlider.value()
-            data["Graphical Settings"]["Disable Accesories"] = self.disableAccessoriesSlider.value()
-            data["Graphical Settings"]["Discord Integration"] = self.discordIntergration.value()
-            data["Login Settings"]["IP Address"] = self.ipAddress.text()
-            data["Login Settings"]["Index"] = self.gameModes.currentIndex()
-            json.dump(data, update, indent = 1)
-
+    def optionsJSONCombo(self):
+        # Grabs the combobox data
         with open("settings/data.json", "r") as loop:
             dataBox = json.load(loop)
             
@@ -62,17 +45,49 @@ class optionsMenu(optionsMenu.Ui_Options_Menu, QtWidgets.QMainWindow):
                 self.resolutionBox.addItem(i)
                 
             for i in dataBox["Display Mode"]:
-                self.DisplayMode.addItem(str(i))
+                self.displayModeBox.addItem(str(i))
                 
-            for i in dataBox["Display Mode"]:
+            for i in dataBox["Antialising"]:
                 self.antiAliasingBox.addItem(i)
             
             for i in dataBox["LOD Distance"]:
                 self.lodDistanceBox.addItem(i)
-        
 
+    # Reads JSON data and dumps it
+    def optionsJSON(self):
+        # Reads the info for the sliders
+        with open("settings/gameSettings.json", "r") as loop:
+            data = json.load(loop)
 
-        
+        # Modifies the content of the gameSettings file
+        with open('settings/gameSettings.json', 'w') as update:
+            # Sliders
+            data["Graphical Settings"]["Show FPS"] = self.fpsSlider.value()
+            data["Graphical Settings"]["V-Sync"] = self.vSyncSlider.value()
+            data["Graphical Settings"]["Animation Blending"] = self.animationSlider.value()
+            data["Graphical Settings"]["GUI Animation"] = self.guiSlider.value()
+            data["Graphical Settings"]["Particle effects"] = self.particleSlider.value()
+            data["Graphical Settings"]["Disable Accesories"] = self.disableAccessoriesSlider.value()
+            data["Graphical Settings"]["Discord Integration"] = self.discordIntergration.value()
+            
+            # Modifies the data of the comboboxes
+            data["Login Settings"]["IP Address"] = self.ipAddress.text()
+            data["Login Settings"]["Index"] = self.gameModes.currentIndex()
+            data["Login Settings"]["Gamemode"] = self.gameModes.currentText()
+
+            data["Resolution"]["Index"] = self.resolutionBox.currentIndex()
+            data["Resolution"]["Option"] = self.resolutionBox.currentText()
+
+            data["Display Mode"]["Index"] = self.displayModeBox.currentIndex()
+            data["Display Mode"]["Option"] = self.displayModeBox.currentText()
+
+            data["Antialising"]["Index"] = self.antiAliasingBox.currentIndex()
+            data["Antialising"]["Option"] = self.antiAliasingBox.currentText()
+
+            data["LOD Distance"]["Index"] = self.lodDistanceBox.currentIndex()
+            data["LOD Distance"]["Option"] = self.lodDistanceBox.currentText()
+            json.dump(data, update, indent = 1)
+           
     # Loads up the defined hot keys located in settings/controls.json
     def hotKeySelector(self):
         with open('settings/controls.json') as loop:
@@ -146,8 +161,20 @@ class optionsMenu(optionsMenu.Ui_Options_Menu, QtWidgets.QMainWindow):
 
                 if platform == "win32":
                     self.playGame.clicked.connect(self.serverHost)
-                
+
+    # Checks the display mode box            
+    def displayModeBoxCheck(self, index):
+        print("test")
     
+    def resolutionBoxCheck(self, index):
+        print("test")
+
+    def antiAlisingBoxCheck(self, index):
+        print("test")
+
+    def lodDistanceBoxCheck(self, index):
+        print("test")
+
     # Loads up the content pack folder and lets the user select the content pack
     # Uses a treeview to show the actual contents of the folder itself
     def contentPackExplorer(self):
@@ -163,7 +190,6 @@ class optionsMenu(optionsMenu.Ui_Options_Menu, QtWidgets.QMainWindow):
         self.treeView.setRootIndex(self.display.index(path))
         self.treeView.setSortingEnabled(True)
 
-    
     # Opens the contents of the zip file and looks for mf file
     # replaces the contents of the resource folder with the resources provided with the .mf
     def contentPackOpener(self, index):
@@ -192,8 +218,8 @@ class optionsMenu(optionsMenu.Ui_Options_Menu, QtWidgets.QMainWindow):
         # Search through all folders and files
         os.chdir("../")
         for root, folders, files in os.walk(dirContentPacks):
-
-            # Look at each file
+        
+        # Look at each file
             for contentFile in files:
 
                 # Save the path to the file from the ./content_packs/ folder
@@ -224,44 +250,15 @@ class optionsMenu(optionsMenu.Ui_Options_Menu, QtWidgets.QMainWindow):
         
         print("Success! Now launch the game with your new files")
         
-    # Runs the astron cluster to start the server
-    def startAstronClusterWin32(self):
-        os.chdir("dependencies/astron")
-
-    # Starts up the AI server
-    def startAiServerWin32(self, districtName, ppython):
-        os.environ["MAX_CHANNELS"] = "999999"
-        os.environ["STATESERVER"] = "4002"
-        os.environ["ASTRON_IP"] = "127.0.0.1:7100"
-        os.environ["EVENTLOGGER_IP"] = "127.0.0.1:7198"
-        os.environ["DISTRICT NAME"] = ""
-        os.environ["BASE_CHANNEL"] = "401000000"
-
-        # Print out echo from batch script
-        print("Starting Toontown Stride AI server...\n ppython:" + ppython + 
-        "\nDistrict name:" + os.environ["DISTRICT NAME"]+ 
-        "\nBase channel" + os.environ["BASE_CHANNEL"] + 
-        "\nMax channels" + os.environ["MAX_CHANNELS"] +
-        "\nAstron IP:" + os.environ["ASTRON_IP"] +
-        "\nEvent Logger IP:" + os.environ["EVENTLOGGER_IP"])
-
-    # Starts up the uberdog server
-    def startUberDogWin32(self, ppython):
-        # Create enviroment variables
-        os.environ["MAX_CHANNELS"] = "999999"
-        os.environ["STATESERVER"] = "4002"
-        os.environ["ASTRON_IP"] = "127.0.0.1:7100"
-        os.environ["EVENTLOGGER_IP"] = "127.0.0.1:7198"
-        os.environ["BASE_CHANNEL"] = "1000000"
+   
         
     # Code to log onto a server that has already been started
     # Added support for JSON loading data
     def serverHost(self):
         PPython, randomtext = QtWidgets.QFileDialog.getOpenFileName(self, self.tr("Open ppython file"), self.tr("C:"), self.tr("PPython (*.exe)"))
-        with open('settings/game_settings.json', 'r') as loop:
         # Grabs the server text and IP to pass into panda
-            with open('settings/game_settings.json') as loop:
-                data = json.load(loop)
+        with open('settings/gameSettings.json') as loop:
+            data = json.load(loop)
 
             Username = data["Login Settings"]["Username"]
             IP_Address = data["Login Settings"]["IP Address"]
@@ -270,7 +267,7 @@ class optionsMenu(optionsMenu.Ui_Options_Menu, QtWidgets.QMainWindow):
             os.environ['input'] = '1'
             os.environ['TTS_GAMESERVER'] = IP_Address
             os.environ['TTS_PLAYCOOKIE'] = Username
-            with open('settings/game_settings.json', 'w') as update:
+            with open('settings/gameSettings.json', 'w') as update:
                 # Get rid of username and IP address after starting
                 data["Login Settings"]["Username"] = ""
                 data["Login Settings"]["IP Address"] = ""
@@ -282,7 +279,7 @@ class optionsMenu(optionsMenu.Ui_Options_Menu, QtWidgets.QMainWindow):
     def linuxServerHost(self):
         os.chdir("../")
         # Reads our JSON file
-        with open('settings/game_settings.json', 'r') as loop:
+        with open('settings/gameSettings.json', 'r') as loop:
             data = json.load(loop)
             # Grabs the server text and IP to pass into panda
 
@@ -293,7 +290,7 @@ class optionsMenu(optionsMenu.Ui_Options_Menu, QtWidgets.QMainWindow):
             os.environ['input'] = '1'
             os.environ['TTS_GAMESERVER'] = IP_Address
             os.environ['TTS_PLAYCOOKIE'] = Username
-            with open('settings/game_settings.json', 'w') as update:
+            with open('settings/gameSettings.json', 'w') as update:
                 # Get rid of username and IP address after starting
                 data["Login Settings"]["Username"] = ""
                 data["Login Settings"]["IP Address"] = ""
@@ -309,7 +306,7 @@ class optionsMenu(optionsMenu.Ui_Options_Menu, QtWidgets.QMainWindow):
         os.environ['DYLD_FRAMEWORK_PATH'] = "Frameworks"
 
         # Reads JSON file
-        with open('settings/game_settings.json', 'r') as loop:
+        with open('settings/gameSettings.json', 'r') as loop:
             data = json.load(loop)
 
         # Grabs data from JSON file and passes it into username variable for loading
@@ -322,7 +319,7 @@ class optionsMenu(optionsMenu.Ui_Options_Menu, QtWidgets.QMainWindow):
         os.environ['TTS_PLAYCOOKIE'] = Username
 
         os.environ['TTS_GAMESERVER'] = "127.0.0.1"
-        with open('settings/game_settings.json', 'w') as update:
+        with open('settings/gameSettings.json', 'w') as update:
                 # Get rid of username and IP address after starting
                 data["Login Settings"]["Username"] = ""
                 data["Login Settings"]["IP Address"] = ""
@@ -335,11 +332,12 @@ class optionsMenu(optionsMenu.Ui_Options_Menu, QtWidgets.QMainWindow):
         # Grabs ppython from where the user selects
         PPython, randomtext = QtWidgets.QFileDialog.getOpenFileName(self, self.tr("Open ppython file"), self.tr("C:\\"), self.tr("PPython (*.exe)"))
         
-        with open('settings/game_settings.json') as loop:
+        with open('settings/gameSettings.json') as loop:
             data = json.load(loop)
 
         Username = data["Login Settings"]["Username"]
         districtName = data["Login Settings"]["District Name"]
+        
         backendir = os.chdir("dev/backend/")
         # Check to prevent a blank user
         if not Username:
@@ -352,17 +350,18 @@ class optionsMenu(optionsMenu.Ui_Options_Menu, QtWidgets.QMainWindow):
         Info.dwFlags = subprocess.STARTF_USESHOWWINDOW
         Info.wShowWindow = SW_HIDE
 
-        # Starts the server processes needed for windows localhost
-        startAstronClusterWin32()
-        startAiServerWin32(districtName, PPython)
-        startUberDogWin32(PPython)
+        subprocess.Popen(r"start-astron-cluster.bat", startupinfo=Info)
+        subprocess.Popen(r"start-ai-server.bat", startupinfo=Info)
+        subprocess.Popen(r"start-uberdog-server.bat", startupinfo=Info)
+        os.environ["DISTRICT_NAME"] = data["Login Settings"]["District Name"]
+        ReturnDir = os.chdir("../../")
 
         os.environ['input'] = '1'
 
         os.environ['TTS_GAMESERVER'] = "127.0.0.1"
 
         os.environ['TTS_PLAYCOOKIE'] = Username
-        with open('settings/game_settings.json', 'w') as update:
+        with open('settings/gameSettings.json', 'w') as update:
                 # Get rid of username and IP address after starting
                 data["Login Settings"]["Username"] = ""
                 data["Login Settings"]["IP Address"] = ""

@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "C:\Panda3D-1.10.0\python\lib\runpy.py", line 162, in _run_module_as_main
+    "__main__", fname, loader, pkg_name)
+  File "C:\Panda3D-1.10.0\python\lib\runpy.py", line 72, in _run_code
+    exec code in run_globals
+  File "C:\Users\Abrahan\Documents\GitHub\Toontown_Server\toontown\toonbase\ToontownStart.py", line 125, in <module>
+    import ToontownGlobals
+  File "toontown\toonbase\ToontownGlobals.py", line 1, in <module>
+    import TTLocalizer
+  File "toontown\toonbase\TTLocalizer.py", line 1, in <module>
+    import string
+KeyboardInterrupt

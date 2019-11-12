@@ -1,8 +1,9 @@
 {
  "Login Settings": {
   "Index": 0,
+  "Gamemode": "Local",
   "IP Address": "",
-  "Username": "Username...",
+  "Username": "",
   "District Name": "District name..."
  },
  "Graphical Settings": {
@@ -15,19 +16,19 @@
   "Discord Integration": 0
  },
  "Resolution": {
-  "Index": "",
+  "Index": -1,
   "Option": ""
  },
  "Display Mode": {
-  "Index": "",
+  "Index": -1,
   "Option": ""
  },
  "Antialising": {
-  "Index": "",
+  "Index": -1,
   "Option": ""
  },
  "LOD Distance": {
-  "Index": "",
+  "Index": -1,
   "Option": ""
  }
 }

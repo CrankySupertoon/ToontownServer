@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'options_menu.ui',
-# licensing of 'options_menu.ui' applies.
+# Form implementation generated from reading ui file 'optionsMenu.ui',
+# licensing of 'optionsMenu.ui' applies.
 #
-# Created: Thu Nov  7 21:48:26 2019
+# Created: Mon Nov 11 20:58:58 2019
 #      by: pyside2-uic  running on PySide2 5.13.0
 #
 # WARNING! All changes made in this file will be lost!
@@ -13,7 +13,7 @@ from PySide2 import QtCore, QtGui, QtWidgets
 class Ui_Options_Menu(object):
     def setupUi(self, Options_Menu):
         Options_Menu.setObjectName("Options_Menu")
-        Options_Menu.resize(800, 600)
+        Options_Menu.resize(800, 576)
         Options_Menu.setMaximumSize(QtCore.QSize(800, 600))
         self.tabWidget = QtWidgets.QTabWidget(Options_Menu)
         self.tabWidget.setGeometry(QtCore.QRect(0, 0, 800, 600))
@@ -255,10 +255,10 @@ class Ui_Options_Menu(object):
         self.label_31 = QtWidgets.QLabel(self.tab_4)
         self.label_31.setGeometry(QtCore.QRect(0, 120, 81, 16))
         self.label_31.setObjectName("label_31")
-        self.DisplayMode = QtWidgets.QComboBox(self.tab_4)
-        self.DisplayMode.setGeometry(QtCore.QRect(100, 120, 161, 22))
-        self.DisplayMode.setToolTipDuration(4)
-        self.DisplayMode.setObjectName("DisplayMode")
+        self.displayModeBox = QtWidgets.QComboBox(self.tab_4)
+        self.displayModeBox.setGeometry(QtCore.QRect(100, 120, 161, 22))
+        self.displayModeBox.setToolTipDuration(4)
+        self.displayModeBox.setObjectName("displayModeBox")
         self.label_32 = QtWidgets.QLabel(self.tab_4)
         self.label_32.setGeometry(QtCore.QRect(0, 150, 81, 16))
         self.label_32.setObjectName("label_32")
