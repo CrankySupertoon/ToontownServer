@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file 'optionsMenu.ui',
 # licensing of 'optionsMenu.ui' applies.
 #
-# Created: Mon Nov 11 20:58:58 2019
+# Created: Wed Nov 13 16:11:15 2019
 #      by: pyside2-uic  running on PySide2 5.13.0
 #
 # WARNING! All changes made in this file will be lost!
@@ -15,6 +15,9 @@ class Ui_Options_Menu(object):
         Options_Menu.setObjectName("Options_Menu")
         Options_Menu.resize(800, 576)
         Options_Menu.setMaximumSize(QtCore.QSize(800, 600))
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("icon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        Options_Menu.setWindowIcon(icon)
         self.tabWidget = QtWidgets.QTabWidget(Options_Menu)
         self.tabWidget.setGeometry(QtCore.QRect(0, 0, 800, 600))
         self.tabWidget.setMaximumSize(QtCore.QSize(800, 600))

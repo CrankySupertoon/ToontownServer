@@ -3,7 +3,7 @@
 # Form implementation generated from reading ui file 'mainWindow.ui',
 # licensing of 'mainWindow.ui' applies.
 #
-# Created: Sun Nov 10 20:24:25 2019
+# Created: Wed Nov 13 16:11:23 2019
 #      by: pyside2-uic  running on PySide2 5.13.0
 #
 # WARNING! All changes made in this file will be lost!
@@ -15,6 +15,9 @@ class Ui_MainWindow(object):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 600)
         MainWindow.setMaximumSize(QtCore.QSize(800, 600))
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap("icon.ico"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        MainWindow.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.name = QtWidgets.QLineEdit(self.centralwidget)
