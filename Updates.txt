@@ -38,4 +38,4 @@ Novemeber 8th, 2019
   - Design UI/UX graphics
 
 - Bugs
-  - Using a new content pack removes the entire folder as a whole, can be remedied by making a new content_pack folder after each pack install
+  - Using a new content pack removes the entire folder as a whole, can be remedied by making a new contentPacks folder after each pack install
