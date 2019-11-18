@@ -10,8 +10,7 @@ import shutil
 from pathlib import Path
 from ui import mainWindow, optionsMenu
 import json
-import time
-import signal
+
 
 class optionsMenu(optionsMenu.Ui_Options_Menu, QtWidgets.QMainWindow):
     def __init__(self, parent=None):
