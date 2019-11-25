@@ -135,7 +135,6 @@ class optionsMenu(optionsMenu.Ui_Options_Menu, QtWidgets.QMainWindow):
 
     def loginSettings(self, index):
         # Checks the content of the comboboxes
-        
             if index == "Local":
                 print("Local")
                 self.gameModes.setCurrentIndex(0)
